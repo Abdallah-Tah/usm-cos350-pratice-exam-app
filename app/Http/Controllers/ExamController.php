@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExamAttempt;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -30,6 +31,11 @@ class ExamController extends Controller
                 'Section 11: Signals (Lecture 14)' => 2,
             ],
         ],
+        'professor' => [
+            'label' => 'Professor Practice Test',
+            'size' => 12,
+            'professor_mode' => true,
+        ],
     ];
 
     public function index()
@@ -39,13 +45,15 @@ class ExamController extends Controller
         $modeConfig = self::MODES[$mode];
         $poolSize = Question::count();
         $total = min($modeConfig['size'], $poolSize);
-        $questionIds = $mode === 'realistic'
-            ? $this->buildRealisticAttempt($total)
-            : Question::query()
+        $questionIds = match($mode) {
+            'realistic' => $this->buildRealisticAttempt($total),
+            'professor' => $this->buildProfessorAttempt($total),
+            default => Question::query()
                 ->inRandomOrder()
                 ->limit($total)
                 ->pluck('id')
-                ->all();
+                ->all(),
+        };
 
         $questions = $this->questionsInAttemptOrder($questionIds);
 
@@ -71,7 +79,7 @@ class ExamController extends Controller
     public function submit(Request $request)
     {
         $validated = $request->validate([
-            'mode' => ['nullable', 'in:comprehensive,realistic'],
+            'mode' => ['nullable', 'in:comprehensive,realistic,professor'],
             'answers' => ['nullable', 'array'],
             'answers.*' => ['nullable', 'in:a,b,c,d'],
         ]);
@@ -105,6 +113,18 @@ class ExamController extends Controller
         $score = $total > 0 ? round(($correct / $total) * 100) : 0;
         $answered = count(array_filter($answers, fn ($answer) => in_array($answer, ['a', 'b', 'c', 'd'], true)));
         $poolSize = Question::count();
+
+        // Save exam attempt to history
+        ExamAttempt::create([
+            'user_id' => auth()->id(),
+            'mode' => $mode,
+            'total_questions' => $total,
+            'answered_questions' => $answered,
+            'correct_answers' => $correct,
+            'score' => $score,
+            'question_ids' => $questionIds,
+            'user_answers' => $answers,
+        ]);
 
         return view('exam.results', compact('results', 'correct', 'total', 'score', 'answered', 'poolSize', 'mode', 'modeConfig'));
     }
@@ -164,6 +184,32 @@ class ExamController extends Controller
         }
 
         return $selectedIds
+            ->shuffle()
+            ->take($total)
+            ->values()
+            ->all();
+    }
+
+    private function buildProfessorAttempt(int $total): array
+    {
+        // Get all professor test questions first
+        $professorIds = Question::query()
+            ->where('key_concept', 'Professor Test Question')
+            ->inRandomOrder()
+            ->pluck('id');
+
+        // If we don't have enough professor questions, supplement with random questions
+        if ($professorIds->count() < $total) {
+            $supplementIds = Question::query()
+                ->whereNotIn('id', $professorIds)
+                ->inRandomOrder()
+                ->limit($total - $professorIds->count())
+                ->pluck('id');
+
+            $professorIds = $professorIds->merge($supplementIds);
+        }
+
+        return $professorIds
             ->shuffle()
             ->take($total)
             ->values()

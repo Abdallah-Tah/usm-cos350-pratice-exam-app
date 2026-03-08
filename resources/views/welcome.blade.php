@@ -46,7 +46,7 @@
                     A comprehensive, randomized practice environment built specifically for the COS 350 midterm and final exams. Don't just study—practice for perfection.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
                     <flux:card class="p-6 transition-all hover:scale-[1.02]">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400">
@@ -71,6 +71,19 @@
                             Simulated exam conditions. 20 questions weighted by lecture section importance, designed to mirror the actual exam difficulty and timing.
                         </p>
                         <flux:button href="{{ route('exam.index', ['mode' => 'realistic']) }}" variant="primary" class="w-full">Start Mock Exam</flux:button>
+                    </flux:card>
+
+                    <flux:card class="p-6 transition-all hover:scale-[1.02] border-purple-200 dark:border-purple-800 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400">
+                                <flux:icon.academic-cap class="size-6" />
+                            </div>
+                            <h2 class="text-xl font-bold">Professor Test</h2>
+                        </div>
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+                            Based on actual professor practice test. 12 targeted questions covering Unix commands, system calls, file permissions, and C programming fundamentals.
+                        </p>
+                        <flux:button href="{{ route('exam.index', ['mode' => 'professor']) }}" variant="primary" class="w-full">Start Professor Test</flux:button>
                     </flux:card>
 
                     <flux:card class="p-6 transition-all hover:scale-[1.02] border-green-200 dark:border-green-800">

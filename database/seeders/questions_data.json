@@ -1182,5 +1182,197 @@
         "correct_answer": "c",
         "explanation": "pause() returns -1 after a signal handler runs, and errno is typically set to EINTR.",
         "key_concept": null
+    },
+    {
+        "question_number": 75,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "easy",
+        "question_text": "On a UNIX system, how can you view the manual page for the find command?",
+        "code_snippet": null,
+        "options": {
+            "a": "help find",
+            "b": "man find",
+            "c": "find --manual",
+            "d": "doc find"
+        },
+        "correct_answer": "b",
+        "explanation": "The man command is used to view manual pages in UNIX/Linux systems. man find displays the manual page for the find command.",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 76,
+        "section": "Section 2: File Permissions (Lecture 2)",
+        "difficulty": "medium",
+        "question_text": "You have just created a file report.txt. What command sets permissions so everyone can read it, but only you are allowed to change it?",
+        "code_snippet": null,
+        "options": {
+            "a": "chmod 644 report.txt",
+            "b": "chmod 777 report.txt",
+            "c": "chmod 444 report.txt",
+            "d": "chmod 600 report.txt"
+        },
+        "correct_answer": "a",
+        "explanation": "chmod 644 gives owner read+write (6), group read (4), and others read (4). Alternative commands: chmod u+w,go-w or chmod u=rw,go=r",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 77,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "medium",
+        "question_text": "Explain what this UNIX command will do (assume 'words' is a file with one word per line): grep 'answer$' words",
+        "code_snippet": "grep 'answer$' words",
+        "options": {
+            "a": "Find all words containing 'answer' anywhere",
+            "b": "Find all words that end with 'answer'",
+            "c": "Find all words that start with 'answer'",
+            "d": "Find the word 'answer$' literally"
+        },
+        "correct_answer": "b",
+        "explanation": "The $ is a regular expression anchor that matches the end of a line. So 'answer$' finds all words ending with 'answer'.",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 78,
+        "section": "Section 3: File I/O (Lecture 3-4)",
+        "difficulty": "easy",
+        "question_text": "What system call(s) would you use to find the size of a file in bytes?",
+        "code_snippet": null,
+        "options": {
+            "a": "fsize()",
+            "b": "stat() or fstat()",
+            "c": "sizeof()",
+            "d": "filesize()"
+        },
+        "correct_answer": "b",
+        "explanation": "The stat() and fstat() system calls fill a struct stat with file metadata, including st_size (file size in bytes).",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 79,
+        "section": "Section 3: File I/O (Lecture 3-4)",
+        "difficulty": "medium",
+        "question_text": "What functions do you call to read a file for buffered input?",
+        "code_snippet": null,
+        "options": {
+            "a": "read()",
+            "b": "fread() or fgets()",
+            "c": "scanf()",
+            "d": "getchar()"
+        },
+        "correct_answer": "b",
+        "explanation": "Buffered I/O uses FILE* streams with functions like fread(), fgets(), fscanf(). Unbuffered I/O uses file descriptors with read().",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 80,
+        "section": "Section 3: File I/O (Lecture 3-4)",
+        "difficulty": "medium",
+        "question_text": "What functions do you call to read a file for unbuffered input?",
+        "code_snippet": null,
+        "options": {
+            "a": "fread()",
+            "b": "read()",
+            "c": "scanf()",
+            "d": "fgets()"
+        },
+        "correct_answer": "b",
+        "explanation": "Unbuffered I/O uses system calls like read() and write() with file descriptors, bypassing the stdio buffer.",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 81,
+        "section": "Section 7: Advanced C Programming (Lecture 9-10)",
+        "difficulty": "hard",
+        "question_text": "What parameters does the qsort() function take and how does it use these to sort the contents of an array?",
+        "code_snippet": null,
+        "options": {
+            "a": "Array pointer only",
+            "b": "Array pointer, number of elements, element size, comparison function",
+            "c": "Array pointer and size only",
+            "d": "Array pointer, size, and sort order (ascending/descending)"
+        },
+        "correct_answer": "b",
+        "explanation": "qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *)). It needs: array address, element count, element size, and a comparison function that returns <0, 0, or >0.",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 82,
+        "section": "Section 2: File Permissions (Lecture 2)",
+        "difficulty": "hard",
+        "question_text": "The file access permissions are stored in the bottom 9 bits in the st_mode field. The bits are rwxrwxrwx (user/group/other). What numeric value represents the 'other read' permission bit?",
+        "code_snippet": "struct stat info;\nstat(\"file\", &info);",
+        "options": {
+            "a": "0x100",
+            "b": "0x04",
+            "c": "0x40",
+            "d": "0x01"
+        },
+        "correct_answer": "b",
+        "explanation": "The bottom 9 bits: user(rwx) group(rwx) other(rwx). Other read is the 3rd bit from right = 0b000000100 = 0x04 (octal 004).",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 83,
+        "section": "Section 2: File Permissions (Lecture 2)",
+        "difficulty": "hard",
+        "question_text": "Write an if statement that checks if everyone (user, group, and others) has read permission on a file.",
+        "code_snippet": "struct stat info;\nstat(\"file\", &info);\nint mask = 0x124; // user,group,other read bits",
+        "options": {
+            "a": "if (info.st_mode & mask)",
+            "b": "if ((info.st_mode & mask) == mask)",
+            "c": "if (info.st_mode == mask)",
+            "d": "if (info.st_mode | mask)"
+        },
+        "correct_answer": "b",
+        "explanation": "To check if ALL bits in mask are set, use (info.st_mode & mask) == mask. Option (a) only checks if ANY bit is set. 0x124 = user read (0x100) + group read (0x20) + other read (0x04).",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 84,
+        "section": "Section 5: C Programming Basics (Lecture 5-6)",
+        "difficulty": "medium",
+        "question_text": "C provides no Boolean type. How do C programs represent and store Boolean values?",
+        "code_snippet": null,
+        "options": {
+            "a": "Use the bool keyword from stdbool.h",
+            "b": "Use integers: 0 for false, any non-zero value for true",
+            "c": "Use the TRUE and FALSE macros",
+            "d": "C cannot represent boolean values"
+        },
+        "correct_answer": "b",
+        "explanation": "In C, 0 is false and any non-zero integer is true. Modern C (C99+) has stdbool.h with bool, true, false, but the underlying representation is still integers.",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 85,
+        "section": "Section 6: Pointers (Lecture 7-8)",
+        "difficulty": "medium",
+        "question_text": "Below is incorrect code to change a variable's value. What needs to be fixed?",
+        "code_snippet": "void change(int a) {\n    int temp = a + 10;\n    a = temp;\n}\n\nint x = 4;\nchange(x); // want x = 14 after this",
+        "options": {
+            "a": "Change parameter to int *a, use *a in function body, call with change(&x)",
+            "b": "Add return statement and assign result",
+            "c": "Use global variable instead",
+            "d": "Pass x by reference using &x in parameter"
+        },
+        "correct_answer": "a",
+        "explanation": "C passes by value. To modify the caller's variable, pass a pointer: void change(int *a) { *a = *a + 10; } and call with change(&x);",
+        "key_concept": "Professor Test Question"
+    },
+    {
+        "question_number": 86,
+        "section": "Section 5: C Programming Basics (Lecture 5-6)",
+        "difficulty": "medium",
+        "question_text": "Write your own version of strlen(). The C library function strlen(dest) returns the length of a string. Do not use any other library routines.",
+        "code_snippet": "int strlen(char *src) {\n    // Your implementation here\n}",
+        "options": {
+            "a": "Loop until '\\0', increment counter, return counter",
+            "b": "Use sizeof(src)",
+            "c": "Use strchr() to find '\\0'",
+            "d": "Count memory addresses"
+        },
+        "correct_answer": "a",
+        "explanation": "Implementation: int len = 0; while (src[len] != '\\0') { len++; } return len; Strings in C are null-terminated, so count characters until you hit '\\0'.",
+        "key_concept": "Professor Test Question"
     }
 ]
