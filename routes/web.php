@@ -10,6 +10,7 @@ Route::get('/exam', [ExamController::class, 'index'])->name('exam.index');
 Route::post('/exam/submit', [ExamController::class, 'submit'])->name('exam.submit');
 Route::post('/exam/reset', [ExamController::class, 'reset'])->name('exam.reset');
 Route::get('/exam/history', [ExamController::class, 'history'])->name('exam.history');
+Route::get('/exam/history/{attempt}', [ExamController::class, 'showHistory'])->name('exam.history.show');
 
 Route::get('/practice', [CodePracticeController::class, 'index'])->name('practice.index');
 Route::get('/practice/{id}', [CodePracticeController::class, 'show'])->name('practice.show');

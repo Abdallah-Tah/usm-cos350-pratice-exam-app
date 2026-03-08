@@ -115,12 +115,54 @@
 
         <!-- Attempt History -->
         <div>
-            <h2 class="text-xl font-bold mb-6 text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                <svg class="size-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Recent Attempts
-            </h2>
+            <div class="flex flex-col gap-4 mb-6 lg:flex-row lg:items-end lg:justify-between">
+                <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                    <svg class="size-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Recent Attempts
+                </h2>
+
+                <form method="GET" action="{{ route('exam.history') }}" class="grid grid-cols-1 gap-3 md:grid-cols-4">
+                    <div>
+                        <label for="mode" class="mb-1 block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Mode</label>
+                        <select id="mode" name="mode" class="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
+                            <option value="">All Modes</option>
+                            @foreach ($modes as $key => $config)
+                                <option value="{{ $key }}" @selected($modeFilter === $key)>{{ $config['label'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="outcome" class="mb-1 block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Outcome</label>
+                        <select id="outcome" name="outcome" class="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
+                            <option value="">All Results</option>
+                            <option value="passed" @selected($outcomeFilter === 'passed')>Passed</option>
+                            <option value="review" @selected($outcomeFilter === 'review')>Needs Review</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="sort" class="mb-1 block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Sort</label>
+                        <select id="sort" name="sort" class="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
+                            <option value="latest" @selected($sortFilter === 'latest')>Latest First</option>
+                            <option value="oldest" @selected($sortFilter === 'oldest')>Oldest First</option>
+                            <option value="score_high" @selected($sortFilter === 'score_high')>Highest Score</option>
+                            <option value="score_low" @selected($sortFilter === 'score_low')>Lowest Score</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors">
+                            Apply
+                        </button>
+                        <a href="{{ route('exam.history') }}" class="inline-flex items-center justify-center rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-colors">
+                            Clear
+                        </a>
+                    </div>
+                </form>
+            </div>
 
             @if($attempts->isEmpty())
                 <flux:card class="p-12 text-center">
@@ -179,6 +221,15 @@
                                         <div class="text-lg font-bold text-zinc-900 dark:text-zinc-100">{{ $attempt->answered_questions }}/{{ $attempt->total_questions }}</div>
                                         <div class="text-xs text-zinc-500 dark:text-zinc-400">Answered</div>
                                     </div>
+                                </div>
+
+                                <div class="mt-5 pt-5 border-t border-zinc-100 dark:border-zinc-800 flex justify-end">
+                                    <a href="{{ route('exam.history.show', $attempt) }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                                        Review Attempt
+                                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
                         </flux:card>

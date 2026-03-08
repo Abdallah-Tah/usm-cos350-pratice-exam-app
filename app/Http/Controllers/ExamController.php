@@ -131,35 +131,119 @@ class ExamController extends Controller
 
     public function history()
     {
-        $attempts = ExamAttempt::query()
-            ->where('user_id', auth()->id())
-            ->orWhereNull('user_id')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+        $modeFilter = request()->string('mode')->toString();
+        $modeFilter = array_key_exists($modeFilter, self::MODES) ? $modeFilter : null;
+
+        $outcomeFilter = request()->string('outcome')->toString();
+        $outcomeFilter = in_array($outcomeFilter, ['passed', 'review'], true) ? $outcomeFilter : null;
+
+        $sortFilter = request()->string('sort')->toString();
+        $sortFilter = in_array($sortFilter, ['latest', 'oldest', 'score_high', 'score_low'], true) ? $sortFilter : 'latest';
+
+        $attemptsQuery = ExamAttempt::query()
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereNull('user_id');
+            });
+
+        if ($modeFilter !== null) {
+            $attemptsQuery->where('mode', $modeFilter);
+        }
+
+        if ($outcomeFilter === 'passed') {
+            $attemptsQuery->where('score', '>=', 70);
+        }
+
+        if ($outcomeFilter === 'review') {
+            $attemptsQuery->where('score', '<', 70);
+        }
+
+        match ($sortFilter) {
+            'oldest' => $attemptsQuery->orderBy('created_at'),
+            'score_high' => $attemptsQuery->orderByDesc('score')->orderByDesc('created_at'),
+            'score_low' => $attemptsQuery->orderBy('score')->orderByDesc('created_at'),
+            default => $attemptsQuery->orderByDesc('created_at'),
+        };
+
+        $attempts = $attemptsQuery->paginate(20)->withQueryString();
 
         $modes = self::MODES;
 
         // Calculate overall statistics
         $totalAttempts = $attempts->total();
         $averageScore = ExamAttempt::query()
-            ->where('user_id', auth()->id())
-            ->orWhereNull('user_id')
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereNull('user_id');
+            })
             ->avg('score');
 
         $bestScore = ExamAttempt::query()
-            ->where('user_id', auth()->id())
-            ->orWhereNull('user_id')
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereNull('user_id');
+            })
             ->max('score');
 
         $statsByMode = ExamAttempt::query()
-            ->where('user_id', auth()->id())
-            ->orWhereNull('user_id')
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereNull('user_id');
+            })
             ->selectRaw('mode, COUNT(*) as count, AVG(score) as avg_score, MAX(score) as best_score')
             ->groupBy('mode')
             ->get()
             ->keyBy('mode');
 
-        return view('exam.history', compact('attempts', 'modes', 'totalAttempts', 'averageScore', 'bestScore', 'statsByMode'));
+        return view('exam.history', compact(
+            'attempts',
+            'modes',
+            'totalAttempts',
+            'averageScore',
+            'bestScore',
+            'statsByMode',
+            'modeFilter',
+            'outcomeFilter',
+            'sortFilter'
+        ));
+    }
+
+    public function showHistory(ExamAttempt $attempt)
+    {
+        abort_unless($attempt->user_id === null || $attempt->user_id === auth()->id(), 404);
+
+        $mode = array_key_exists($attempt->mode, self::MODES) ? $attempt->mode : 'comprehensive';
+        $modeConfig = self::MODES[$mode];
+        $questions = $this->questionsInAttemptOrder($attempt->question_ids ?? []);
+        $results = [];
+
+        foreach ($questions as $question) {
+            $userAnswer = $attempt->user_answers[$question->id] ?? null;
+
+            $results[$question->id] = [
+                'question' => $question,
+                'user_answer' => $userAnswer,
+                'is_correct' => $userAnswer === $question->correct_answer,
+            ];
+        }
+
+        $correct = $attempt->correct_answers;
+        $total = $attempt->total_questions;
+        $score = $attempt->score;
+        $answered = $attempt->answered_questions;
+        $poolSize = Question::count();
+
+        return view('exam.history-show', compact(
+            'attempt',
+            'results',
+            'correct',
+            'total',
+            'score',
+            'answered',
+            'poolSize',
+            'mode',
+            'modeConfig'
+        ));
     }
 
     public function reset()

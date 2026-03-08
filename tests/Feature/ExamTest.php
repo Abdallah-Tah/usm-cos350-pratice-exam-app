@@ -114,6 +114,102 @@ class ExamTest extends TestCase
         $response->assertSee('Recent Attempts');
     }
 
+    public function test_history_attempt_page_shows_correct_and_incorrect_answers(): void
+    {
+        $this->seedQuestions(60);
+
+        $this->get(route('exam.index'));
+
+        $questionIds = session('exam.question_ids');
+        $firstQuestion = Question::findOrFail($questionIds[0]);
+        $secondQuestion = Question::findOrFail($questionIds[1]);
+
+        $this->post(route('exam.submit'), [
+            'mode' => 'comprehensive',
+            'answers' => [
+                $firstQuestion->id => $firstQuestion->correct_answer,
+                $secondQuestion->id => 'b',
+            ],
+        ])->assertOk();
+
+        $attemptId = \App\Models\ExamAttempt::query()->latest('id')->value('id');
+
+        $response = $this->get(route('exam.history.show', $attemptId));
+
+        $response->assertOk();
+        $response->assertSee('Saved Attempt');
+        $response->assertSee('Question Review');
+        $response->assertSee('Correct');
+        $response->assertSee('Incorrect');
+        $response->assertSee('Correct Answer:');
+    }
+
+    public function test_history_can_be_filtered_by_mode_and_outcome(): void
+    {
+        $comprehensiveAttempt = \App\Models\ExamAttempt::create([
+            'user_id' => null,
+            'mode' => 'comprehensive',
+            'total_questions' => 50,
+            'answered_questions' => 50,
+            'correct_answers' => 45,
+            'score' => 90,
+            'question_ids' => [1, 2],
+            'user_answers' => [],
+        ]);
+
+        $realisticAttempt = \App\Models\ExamAttempt::create([
+            'user_id' => null,
+            'mode' => 'realistic',
+            'total_questions' => 20,
+            'answered_questions' => 20,
+            'correct_answers' => 8,
+            'score' => 40,
+            'question_ids' => [3, 4],
+            'user_answers' => [],
+        ]);
+
+        $response = $this->get(route('exam.history', [
+            'mode' => 'realistic',
+            'outcome' => 'review',
+        ]));
+
+        $response->assertOk();
+        $response->assertSee('Realistic Exam');
+        $response->assertSee('40%');
+        $response->assertSee(route('exam.history.show', $realisticAttempt), false);
+        $response->assertDontSee(route('exam.history.show', $comprehensiveAttempt), false);
+    }
+
+    public function test_history_can_be_sorted_by_score(): void
+    {
+        \App\Models\ExamAttempt::create([
+            'user_id' => null,
+            'mode' => 'comprehensive',
+            'total_questions' => 50,
+            'answered_questions' => 50,
+            'correct_answers' => 15,
+            'score' => 30,
+            'question_ids' => [1, 2],
+            'user_answers' => [],
+        ]);
+
+        \App\Models\ExamAttempt::create([
+            'user_id' => null,
+            'mode' => 'comprehensive',
+            'total_questions' => 50,
+            'answered_questions' => 50,
+            'correct_answers' => 45,
+            'score' => 90,
+            'question_ids' => [3, 4],
+            'user_answers' => [],
+        ]);
+
+        $response = $this->get(route('exam.history', ['sort' => 'score_high']));
+
+        $response->assertOk();
+        $response->assertSeeInOrder(['90%', '30%']);
+    }
+
     public function test_dashboard_includes_history_navigation(): void
     {
         $user = User::factory()->create();
