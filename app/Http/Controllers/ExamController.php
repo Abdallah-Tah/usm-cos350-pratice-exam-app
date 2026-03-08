@@ -129,6 +129,39 @@ class ExamController extends Controller
         return view('exam.results', compact('results', 'correct', 'total', 'score', 'answered', 'poolSize', 'mode', 'modeConfig'));
     }
 
+    public function history()
+    {
+        $attempts = ExamAttempt::query()
+            ->where('user_id', auth()->id())
+            ->orWhereNull('user_id')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        $modes = self::MODES;
+
+        // Calculate overall statistics
+        $totalAttempts = $attempts->total();
+        $averageScore = ExamAttempt::query()
+            ->where('user_id', auth()->id())
+            ->orWhereNull('user_id')
+            ->avg('score');
+
+        $bestScore = ExamAttempt::query()
+            ->where('user_id', auth()->id())
+            ->orWhereNull('user_id')
+            ->max('score');
+
+        $statsByMode = ExamAttempt::query()
+            ->where('user_id', auth()->id())
+            ->orWhereNull('user_id')
+            ->selectRaw('mode, COUNT(*) as count, AVG(score) as avg_score, MAX(score) as best_score')
+            ->groupBy('mode')
+            ->get()
+            ->keyBy('mode');
+
+        return view('exam.history', compact('attempts', 'modes', 'totalAttempts', 'averageScore', 'bestScore', 'statsByMode'));
+    }
+
     public function reset()
     {
         $mode = request()->string('mode')->toString();

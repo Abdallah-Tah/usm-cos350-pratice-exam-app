@@ -50,6 +50,9 @@
             </div>
 
             <div class="flex items-center gap-3">
+                <a href="{{ route('exam.history') }}" class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                    History
+                </a>
                 <a href="{{ route('practice.index') }}" class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
                     Code Practice
                 </a>

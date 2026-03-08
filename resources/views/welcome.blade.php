@@ -24,6 +24,7 @@
 
                 @if (Route::has('login'))
                     <nav class="flex items-center gap-4">
+                        <flux:button href="{{ route('exam.history') }}" variant="ghost">History</flux:button>
                         @auth
                             <flux:button href="{{ route('dashboard') }}" variant="subtle" wire:navigate>Dashboard</flux:button>
                         @else

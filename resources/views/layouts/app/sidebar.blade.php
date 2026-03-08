@@ -28,6 +28,9 @@
                 <flux:sidebar.item icon="clock" :href="route('exam.index', ['mode' => 'realistic'])">
                     {{ __('Realistic Mock') }}
                 </flux:sidebar.item>
+                <flux:sidebar.item icon="chart-bar" :href="route('exam.history')" :current="request()->routeIs('exam.history')">
+                    {{ __('History') }}
+                </flux:sidebar.item>
                 <flux:sidebar.item icon="bolt" :href="route('exam.index', ['mode' => 'practice'])">
                     {{ __('Practice') }}
                 </flux:sidebar.item>

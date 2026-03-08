@@ -58,8 +58,31 @@ class CodePracticeController extends Controller
             ]);
         }
 
-        // Execute the compiled program with timeout
-        $runCmd = "timeout 5s {$execpath} 2>&1";
+        // Execute the compiled program with timeout (cross-platform)
+        // Check if timeout command is available (Linux) or use gtimeout (macOS with coreutils)
+        $timeoutCmd = 'timeout';
+        if (PHP_OS_FAMILY === 'Darwin') {
+            // On macOS, check if gtimeout is available (from brew coreutils)
+            exec('which gtimeout 2>/dev/null', $output, $returnCode);
+            if ($returnCode === 0) {
+                $timeoutCmd = 'gtimeout';
+            } else {
+                // No timeout available on macOS, just run directly (not recommended for production)
+                $runCmd = "{$execpath} 2>&1";
+                exec($runCmd, $runOutput, $runReturnCode);
+
+                // Clean up
+                @unlink($filepath);
+                @unlink($execpath);
+
+                return response()->json([
+                    'success' => true,
+                    'output' => implode("\n", $runOutput),
+                ]);
+            }
+        }
+
+        $runCmd = "{$timeoutCmd} 5s {$execpath} 2>&1";
         exec($runCmd, $runOutput, $runReturnCode);
 
         // Clean up

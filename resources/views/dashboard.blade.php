@@ -34,15 +34,15 @@
 
             <flux:card class="p-6 flex flex-col items-start gap-4">
                 <div class="p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600">
-                    <flux:icon.academic-cap class="size-6" />
+                    <flux:icon.chart-bar class="size-6" />
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold">Quick Study</h2>
+                    <h2 class="text-lg font-bold">Attempt History</h2>
                     <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                        Need a quick refresh? Jump into a random 10-question sprint soon. (Coming Soon)
+                        Review past scores, compare performance by mode, and track improvement over time.
                     </p>
                 </div>
-                <flux:button variant="ghost" size="sm" class="mt-auto" disabled>Coming Soon</flux:button>
+                <flux:button href="{{ route('exam.history') }}" variant="ghost" size="sm" class="mt-auto">View History</flux:button>
             </flux:card>
         </div>
 
@@ -71,11 +71,14 @@
             <flux:card class="p-6 bg-zinc-50 dark:bg-zinc-800/20 border-dashed">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-bold">Recent Attempts</h3>
-                    <flux:badge size="sm" variant="subtle">Coming Soon</flux:badge>
+                    <flux:button href="{{ route('exam.history') }}" variant="subtle" size="sm">Open History</flux:button>
                 </div>
-                <div class="flex flex-col items-center justify-center py-10 opacity-30">
+                <div class="flex flex-col items-center justify-center py-10 opacity-70 text-center">
                     <flux:icon.document-chart-bar class="size-12 mb-4" />
-                    <p class="text-xs uppercase tracking-widest font-bold">Storage not enabled</p>
+                    <p class="text-xs uppercase tracking-widest font-bold">History Enabled</p>
+                    <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400 max-w-xs">
+                        Each submitted exam is saved so you can review your performance later.
+                    </p>
                 </div>
             </flux:card>
         </div>

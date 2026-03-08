@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,7 +18,8 @@ class ExamTest extends TestCase
         $response = $this->get(route('exam.index'));
 
         $response->assertOk();
-        $response->assertSee('Randomized Attempt');
+        $response->assertSee('Comprehensive Review');
+        $response->assertSee('Submit Exam');
 
         $questionIds = session('exam.question_ids');
 
@@ -32,7 +34,7 @@ class ExamTest extends TestCase
         $response = $this->get(route('exam.index', ['mode' => 'realistic']));
 
         $response->assertOk();
-        $response->assertSee('Realistic Mock Exam');
+        $response->assertSee('Realistic Exam');
         $response->assertSee('20 Questions');
 
         $questionIds = session('exam.question_ids');
@@ -62,6 +64,68 @@ class ExamTest extends TestCase
         $response->assertSee('Correct');
     }
 
+    public function test_submitting_an_exam_creates_a_history_record(): void
+    {
+        $this->seedQuestions(60);
+
+        $this->get(route('exam.index'));
+
+        $questionIds = session('exam.question_ids');
+        $firstQuestion = Question::findOrFail($questionIds[0]);
+
+        $this->post(route('exam.submit'), [
+            'mode' => 'comprehensive',
+            'answers' => [
+                $firstQuestion->id => $firstQuestion->correct_answer,
+            ],
+        ])->assertOk();
+
+        $this->assertDatabaseCount('exam_attempts', 1);
+        $this->assertDatabaseHas('exam_attempts', [
+            'mode' => 'comprehensive',
+            'total_questions' => 50,
+            'answered_questions' => 1,
+            'correct_answers' => 1,
+            'score' => 2,
+        ]);
+    }
+
+    public function test_history_page_displays_saved_attempts(): void
+    {
+        $this->seedQuestions(60);
+
+        $this->get(route('exam.index'));
+
+        $questionIds = session('exam.question_ids');
+        $firstQuestion = Question::findOrFail($questionIds[0]);
+
+        $this->post(route('exam.submit'), [
+            'mode' => 'comprehensive',
+            'answers' => [
+                $firstQuestion->id => $firstQuestion->correct_answer,
+            ],
+        ])->assertOk();
+
+        $response = $this->get(route('exam.history'));
+
+        $response->assertOk();
+        $response->assertSee('Exam History');
+        $response->assertSee('Comprehensive Review');
+        $response->assertSee('Recent Attempts');
+    }
+
+    public function test_dashboard_includes_history_navigation(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('dashboard'));
+
+        $response->assertOk();
+        $response->assertSee('Attempt History');
+        $response->assertSee('View History');
+        $response->assertSee(route('exam.history'), false);
+    }
+
     public function test_realistic_mode_result_keeps_mode_context(): void
     {
         $this->seedQuestionsForRealisticMode();
@@ -79,7 +143,7 @@ class ExamTest extends TestCase
         ]);
 
         $response->assertOk();
-        $response->assertSee('Realistic Mock Exam Results');
+        $response->assertSee('Realistic Exam Results');
         $response->assertSee('1');
         $response->assertSee('Correct');
     }
