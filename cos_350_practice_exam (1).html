@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COS 350 Big Review Practice</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --accent: #1d4ed8;
+      --accent-soft: #e8f0ff;
+      --good: #065f46;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff, #eef4ff);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+
+    h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    h2 { font-size: 1.35rem; margin-bottom: 8px; }
+    h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    p { margin: 8px 0; }
+
+    .muted { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .question {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .question-number {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    code, pre {
+      font-family: "Courier New", Courier, monospace;
+      background: #f8fafc;
+    }
+
+    pre {
+      padding: 12px;
+      border-radius: 10px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+
+    details {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      background: #f9fbff;
+      font-weight: bold;
+    }
+
+    .answer {
+      padding: 14px;
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+    }
+
+    .tip {
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      background: #f8fbff;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .practice-box {
+      background: #fffef8;
+      border: 1px dashed #d1b75b;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px 0 10px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>COS 350 Big Review Practice</h1>
+      <p>Full review practice for UNIX and C systems programming based on lectures, experiments, and pre-exam topics.</p>
+      <p class="muted">Use this page to test yourself first, then open the answers only after you finish each question.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Grep Quick Rules</h3>
+          <p><code>^</code> start of line, <code>$</code> end of line, <code>.</code> any one character, <code>[abc]</code> any one listed char, <code>[^abc]</code> any one char not listed, <code>*</code> zero or more, <code>+</code> one or more in egrep, <code>?</code> zero or one, <code>{n}</code> exactly n in egrep.</p>
+        </div>
+        <div class="card">
+          <h3>Permission Mask Quick Rules</h3>
+          <p>The bottom 9 bits of <code>st_mode</code> are <code>rwxrwxrwx</code>. User bits are the top three, group bits are the middle three, and other bits are the bottom three. Example masks: <code>S_IROTH = 00004</code>, <code>S_IWOTH = 00002</code>, <code>S_IXOTH = 00001</code>.</p>
+        </div>
+        <div class="card">
+          <h3>Topics Covered</h3>
+          <p>UNIX commands, permissions, grep, stat, system calls, file I/O, pointers, strings, qsort, and bit masks.</p>
+        </div>
+        <div class="card">
+          <h3>How to Practice</h3>
+          <p>Write your answer on paper first. Then compare with the answer section. Try to explain why, not only what.</p>
+        </div>
+        <div class="card">
+          <h3>Best Use</h3>
+          <p>Repeat these questions until you can answer them without looking at notes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 1: UNIX Basics</h2>
+      <div class="tip">
+        Rule to remember: many short UNIX questions ask what a command does, what option changes its behavior, or what exact command you should type.
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 1</div>
+        <p>How do you view the manual page for the UNIX command <code>grep</code>? Explain what the command does, not only the text you type.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>man grep</code></p>
+            <p>This opens the manual page for the <code>grep</code> command.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 2</div>
+        <p>You created a file named <code>notes.txt</code>. Set the permissions so that everyone can read it, but only you can write it. Explain both the symbolic and numeric meaning.</p>
+        <div class="practice-box">
+          Write one symbolic mode answer and one numeric mode answer.
+        </div>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Symbolic:</p>
+            <pre>chmod u+w,go-w notes.txt
+chmod a+r notes.txt</pre>
+            <p>Or more simply:</p>
+            <pre>chmod 644 notes.txt</pre>
+            <p><code>644</code> means user = read/write, group = read, others = read.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 3</div>
+        <p>Assume <code>words</code> is a file with one word per line. What does this command do? Explain what each grep part means.</p>
+        <pre>grep '^un' words</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It prints all lines in <code>words</code> that start with <code>un</code>.</p>
+            <p>The <code>^</code> means beginning of the line.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 4</div>
+        <p>Assume <code>words</code> is a file with one word per line. What does this command do? Explain what each grep part means.</p>
+        <pre>grep 'ing$' words</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It prints all words that end with <code>ing</code>.</p>
+            <p>The <code>$</code> means end of the line.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 5</div>
+        <p>What command can you use to list all files in the current directory, including hidden files?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>ls -a</code></p>
+            <p>The <code>-a</code> option includes hidden files such as <code>.profile</code> and <code>.bashrc</code>.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 2: Systems Programming Basics</h2>
+
+      <div class="question">
+        <div class="question-number">Question 6</div>
+        <p>What system call can you use to get information about a file, including its size in bytes?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>stat()</code></p>
+            <p>The file size is stored in the <code>st_size</code> field of the <code>struct stat</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 7</div>
+        <p>Which function is commonly used for buffered file input, and which one is used for unbuffered file input?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Buffered input: <code>fread()</code>, <code>fgets()</code>, or <code>getc()</code> depending on the situation.</p>
+            <p>Unbuffered input: <code>read()</code></p>
+            <p>In many class questions, the expected pair is <code>fread()</code> for buffered and <code>read()</code> for unbuffered.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 8</div>
+        <p>What is the difference between <code>open()</code> and <code>fopen()</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>open()</code> is a UNIX system call and returns a file descriptor (an <code>int</code>).</p>
+            <p><code>fopen()</code> is a C library function and returns a <code>FILE *</code>.</p>
+            <p><code>fopen()</code> uses buffered I/O. <code>open()</code> is lower level.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 9</div>
+        <p>Explain the parameters of <code>qsort()</code>:</p>
+        <pre>qsort(base, nmemb, size, compar);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>base</code>: pointer to the array</p>
+            <p><code>nmemb</code>: number of elements in the array</p>
+            <p><code>size</code>: size in bytes of each element</p>
+            <p><code>compar</code>: pointer to the comparison function used to decide order</p>
+            <p><code>qsort()</code> can sort any kind of array because you give it the start address, number of items, item size, and a comparison function.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 10</div>
+        <p>Why must the comparison function passed to <code>qsort()</code> accept <code>const void *</code> parameters?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Because <code>qsort()</code> is a generic function. It does not know the real type of the array elements.</p>
+            <p>It passes element addresses as <code>const void *</code>, and inside the comparison function you cast them to the correct type.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 3: Permissions and Bit Masks</h2>
+      <div class="tip">
+        Rule to remember: permission masks are usually written in octal. The order is user, group, other. Each group is <code>r=4</code>, <code>w=2</code>, <code>x=1</code>.
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 11</div>
+        <p>The bottom 9 bits of <code>st_mode</code> store file permissions in the order <code>rwxrwxrwx</code>. What numeric mask represents the <strong>other write</strong> permission bit? Explain how you know its position.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>0002</code> in octal</p>
+            <p>In hex, that is <code>0x2</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 12</div>
+        <p>Write an <code>if</code> statement that prints <code>"group can execute"</code> if the group execute bit is set. Explain why a bitwise AND is used.</p>
+        <pre>struct stat info;
+stat("file", &info);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>if (info.st_mode & 0010) {
+    printf("group can execute\n");
+}</pre>
+            <p>The group execute bit is octal <code>0010</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 13</div>
+        <p>Write an <code>if</code> statement that prints <code>"everyone readable"</code> if user, group, and others all have read permission. Explain why the comparison checks all three read bits together.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>if ((info.st_mode & 0444) == 0444) {
+    printf("everyone readable\n");
+}</pre>
+            <p><code>0444</code> checks all three read bits together.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 4: C Language Questions</h2>
+
+      <div class="question">
+        <div class="question-number">Question 14</div>
+        <p>C traditionally does not require a built-in Boolean type. How are true and false usually represented in C?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>False is represented by <code>0</code>.</p>
+            <p>True is represented by any nonzero value, such as <code>1</code>, <code>2</code>, or <code>-5</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 15</div>
+        <p>Fix this function so it changes the caller's variable:</p>
+        <pre>void add5(int x) {
+    x = x + 5;
+}</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>void add5(int *x) {
+    *x = *x + 5;
+}
+
+int main(void) {
+    int a = 10;
+    add5(&a);
+    return 0;
+}</pre>
+            <p>You must pass the address and use a pointer to change the original variable.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 16</div>
+        <p>Write your own version of <code>strlen()</code> without using any other library function.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>int my_strlen(char *s) {
+    int len = 0;
+    while (*s != '\0') {
+        len++;
+        s++;
+    }
+    return len;
+}</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 17</div>
+        <p>What is wrong with this code?</p>
+        <pre>char *p;
+*p = 'A';</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>p</code> does not point to valid memory yet. Dereferencing it is invalid.</p>
+            <p>You must make it point to allocated memory or to an existing variable first.</p>
+            <pre>char c;
+char *p = &c;
+*p = 'A';</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 18</div>
+        <p>What is the output of this code?</p>
+        <pre>int x = 7;
+int *p = &x;
+printf("%d\n", *p);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>The output is <code>7</code>.</p>
+            <p><code>p</code> stores the address of <code>x</code>, and <code>*p</code> means the value stored at that address.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 5: Mixed Short Practice</h2>
+
+      <div class="question">
+        <div class="question-number">Question 19</div>
+        <p>Which system call closes a file descriptor?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>close()</code></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 20</div>
+        <p>Which system call changes the current file offset for a file descriptor?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>lseek()</code></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 21</div>
+        <p>What command shows the current working directory?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>pwd</code></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 22</div>
+        <p>What does this command do?</p>
+        <pre>grep '.' words</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It prints every non-empty line.</p>
+            <p>The dot <code>.</code> matches any single character, so empty lines do not match.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 23</div>
+        <p>Write a declaration for a pointer to an integer.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>int *p;</code></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 24</div>
+        <p>What does the null terminator in a C string look like?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>'\0'</code></p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>One More Challenge Set</h2>
+      <p>Try to answer these without opening your notes:</p>
+      <ol>
+        <li>What is the difference between a file descriptor and a <code>FILE *</code>?</li>
+        <li>What does <code>chmod 600 private.txt</code> mean?</li>
+        <li>What does <code>grep '^[aeiou]'</code> do on a word list?</li>
+        <li>Why do we pass <code>&x</code> to a function that should change <code>x</code>?</li>
+        <li>What field of <code>struct stat</code> contains file size?</li>
+      </ol>
+      <div class="tip">
+        A good exam answer is short, correct, and explains the reason clearly.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 6: Experiment-Style Practice (Exp 1 to Exp 12)</h2>
+      <p class="muted">These are based on the kind of work you have been practicing: shell commands, grep, permissions, arrays, debugging, recursion, file input/output, links, and compression-style thinking.</p>
+
+      <div class="question">
+        <div class="question-number">Question 25</div>
+        <p>You run this command:</p>
+        <pre>ls -R</pre>
+        <p>What does it do? Does it always go into an infinite loop if symbolic links exist?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>ls -R</code> lists directories recursively, showing files and subdirectories under the current directory.</p>
+            <p>No, it does not always go into an infinite loop. Normal <code>ls -R</code> lists directory contents recursively, but it does not blindly follow symbolic links as if they were normal directories in a way that causes endless recursion.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 26</div>
+        <p>What is the difference between a hard link and a symbolic link?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>A hard link is another directory entry for the same inode and same file data.</p>
+            <p>A symbolic link is a separate file that stores a pathname to another file.</p>
+            <p>If the original file is removed, a hard link can still access the data, but a symbolic link may become broken.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 27</div>
+        <p>Write the command to create a symbolic link named <code>words_link</code> that points to the file <code>/usr/class/cos350/exps/l7/words</code>.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>ln -s /usr/class/cos350/exps/l7/words words_link</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 28</div>
+        <p>Using <code>grep</code> on a word list, how would you count:</p>
+        <ol>
+          <li>words containing <code>cie</code></li>
+          <li>words containing <code>ei</code> not immediately preceded by <code>c</code></li>
+          <li>words starting with <code>ei</code></li>
+        </ol>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>grep 'cie' words | wc -l
+grep '[^c]ei' words | wc -l
+grep '^ei' words | wc -l</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 29</div>
+        <p>What is wrong with this kind of array code?</p>
+        <pre>int a[10];
+a[10] = 5;</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>The valid indexes are <code>0</code> through <code>9</code>. Writing to <code>a[10]</code> is out of bounds.</p>
+            <p>This causes undefined behavior.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 30</div>
+        <p>Why must a variable used with <code>getchar()</code> usually be declared as <code>int</code> and not <code>char</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Because <code>getchar()</code> must be able to store every valid character value and also the special value <code>EOF</code>.</p>
+            <p><code>char</code> may not be able to represent <code>EOF</code> correctly, but <code>int</code> can.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 31</div>
+        <p>Suppose you are writing your own version of <code>expand</code>. What should happen when you read a tab character?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>You should output enough spaces to move to the next tab stop.</p>
+            <p>The number of spaces depends on the current column position and the tab width.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 32</div>
+        <p>In GDB, what commands would you use to:</p>
+        <ol>
+          <li>set a breakpoint at line 26</li>
+          <li>run the program</li>
+          <li>print the value of variable <code>local</code></li>
+          <li>print the address of <code>local</code></li>
+        </ol>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>b 26
+run
+p local
+p &local</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 33</div>
+        <p>What does recursion mean in C programming?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Recursion means a function calls itself.</p>
+            <p>A recursive function should have a base case to stop the recursion, otherwise it can continue until stack overflow.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 34</div>
+        <p>Why is a base case important in a recursive function?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>The base case is the stopping condition.</p>
+            <p>Without it, the function keeps calling itself and may crash from too many recursive calls.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 35</div>
+        <p>What is the difference between these two declarations?</p>
+        <pre>char *argv[]
+char **argv</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>They are closely related and in function parameters they are effectively equivalent.</p>
+            <p>Both represent a pointer to pointers to char, commonly used for command-line arguments.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 7: Project-Style C Questions</h2>
+
+      <div class="question">
+        <div class="question-number">Question 36</div>
+        <p>When using <code>open()</code>, what value usually means the open failed?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>A return value less than <code>0</code>, usually <code>-1</code>, means failure.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 37</div>
+        <p>Why should you check the return value of <code>read()</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Because <code>read()</code> tells you how many bytes were actually read.</p>
+            <p>A value of <code>0</code> means end of file, and a negative value means an error.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 38</div>
+        <p>In a compression project, why might you keep a bit buffer and a count of how many bits are currently stored?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Because compressed data may not align exactly to full bytes.</p>
+            <p>A bit buffer lets you pack bits together until you have enough to write one byte to the output file.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 39</div>
+        <p>Why is it useful to split a large program into helper functions instead of writing everything in <code>main()</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It makes the code easier to read, test, debug, and reuse.</p>
+            <p>It also keeps <code>main()</code> shorter and easier to understand.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 40</div>
+        <p>What is the difference between text mode thinking and byte-level file processing thinking in systems programming?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Text mode thinking focuses on characters, lines, and strings.</p>
+            <p>Byte-level processing focuses on raw bytes, exact sizes, file descriptors, and how data is stored and moved.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 8: Midterm Simulation</h2>
+      <div class="tip">
+        These are short-answer style review questions. For each one, train yourself to give the command, then a one-sentence explanation, then the reason.
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 41</div>
+        <p>Give a command that finds all lines in <code>words</code> ending with the letter <code>y</code>.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>grep 'y$' words</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 42</div>
+        <p>What does <code>chmod 755 prog</code> mean?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>User gets read, write, execute.</p>
+            <p>Group gets read and execute.</p>
+            <p>Others get read and execute.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 43</div>
+        <p>Write a small loop that prints each character of a string until the null terminator.</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>char *s = "hello";
+while (*s != ' ') {
+    putchar(*s);
+    s++;
+}</pre>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 44</div>
+        <p>What is the purpose of <code>argc</code> in:</p>
+        <pre>int main(int argc, char *argv[])</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>argc</code> stores the number of command-line arguments.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 45</div>
+        <p>What is stored in <code>argv[0]</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Usually the program name, or the path used to run the program.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Set 10: Devices, Terminals, and Signals</h2>
+
+      <div class="question">
+        <div class="question-number">Question 55</div>
+        <p>Unix treats devices like files. What does that mean for programming with devices?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It means many devices can be used with the same basic file operations such as <code>open()</code>, <code>close()</code>, <code>read()</code>, and <code>write()</code>.</p>
+            <p>This is one of the main Unix ideas: regular files and many devices use a similar interface.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 56</div>
+        <p>What command shows current terminal settings?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>stty -a</code></p>
+            <p>This prints terminal settings such as special control characters, echo behavior, and canonical mode related information.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 57</div>
+        <p>What do <code>tcgetattr()</code> and <code>tcsetattr()</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>tcgetattr()</code> reads terminal attributes into a <code>struct termios</code>.</p>
+            <p><code>tcsetattr()</code> changes terminal attributes using values from a <code>struct termios</code>.</p>
+            <p>They are used to control terminal behavior such as echo and input buffering.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 58</div>
+        <p>Why would a password program turn off terminal echo?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>So the password is not shown on the screen while the user types it.</p>
+            <p>This is done by changing terminal settings, usually by clearing the echo bit in the local terminal flags.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 59</div>
+        <p>What does <code>fcntl(fd, F_GETFL)</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It reads the file status flags of the open file descriptor <code>fd</code>.</p>
+            <p>The result can then be modified and written back with <code>F_SETFL</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 60</div>
+        <p>Why is append mode useful when multiple programs write to the same log file?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Append mode helps each write go to the end of the file.</p>
+            <p>Without append mode, two programs may both seek to the end and then write in a conflicting order.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 61</div>
+        <p>What does the command <code>kill 1234</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It sends the default signal, usually <code>SIGTERM</code>, to process 1234.</p>
+            <p>This asks the process to terminate.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 62</div>
+        <p>What does the command <code>kill -9 1234</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It sends <code>SIGKILL</code> to process 1234.</p>
+            <p>This forcefully kills the process and cannot be caught or ignored.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 63</div>
+        <p>What signal is normally sent by pressing <code>Ctrl-C</code>? What signal is normally sent by pressing <code>Ctrl-Z</code>?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>Ctrl-C</code> sends <code>SIGINT</code>.</p>
+            <p><code>Ctrl-Z</code> sends <code>SIGTSTP</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 64</div>
+        <p>What does this line do?</p>
+        <pre>signal(SIGINT, handler);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It installs <code>handler</code> as the signal handler for <code>SIGINT</code>.</p>
+            <p>When the program receives <code>SIGINT</code>, the handler function runs.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 65</div>
+        <p>What does this line do?</p>
+        <pre>signal(SIGINT, SIG_IGN);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It tells the program to ignore <code>SIGINT</code>.</p>
+            <p>That means pressing <code>Ctrl-C</code> will not use the normal interrupt behavior for that process.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 66</div>
+        <p>What does <code>sleep(5)</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It pauses the calling process for up to 5 seconds.</p>
+            <p>If a non-ignored signal arrives first, the sleep can end early.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 67</div>
+        <p>What does <code>alarm(4)</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It schedules a <code>SIGALRM</code> signal to be sent to the calling process in 4 seconds.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 68</div>
+        <p>What does <code>pause()</code> do?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>It stops the calling process until a signal is delivered.</p>
+            <p>If a signal-catching function runs and returns, <code>pause()</code> returns <code>-1</code> and <code>errno</code> is set to <code>EINTR</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 69</div>
+        <p>Explain what happens in this kind of program:</p>
+        <pre>signal(SIGALRM, wakeup);
+alarm(4);
+pause();</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>First the program installs a handler for <code>SIGALRM</code>. Then it schedules an alarm for 4 seconds. Then it blocks in <code>pause()</code>.</p>
+            <p>When the alarm expires, the kernel sends <code>SIGALRM</code>, the handler runs, and then the program continues after <code>pause()</code>.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <div class="section card">
+      <h2>Fast Review by Experiment Theme</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Experiments 1-3</h3>
+          <p>UNIX basics, man pages, ls, pwd, permissions, links, grep patterns.</p>
+        </div>
+        <div class="card">
+          <h3>Experiments 4-6</h3>
+          <p>Arrays, bounds, loops, debugging, GDB, stack variables, recursion.</p>
+        </div>
+        <div class="card">
+          <h3>Experiments 7-9</h3>
+          <p>stat, file info, buffered vs unbuffered I/O, read, write, open, close.</p>
+        </div>
+        <div class="card">
+          <h3>Experiments 10-12</h3>
+          <p>Arguments, qsort, function pointers, strings, files, project preparation.</p>
+        </div>
+      </div>
+      <div class="tip">
+        For the midterm, focus on these patterns: explain command behavior, explain C code behavior, fix broken code, and write short exact commands.
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>How to Train for the Midterm</h2>
+      <ol>
+        <li>Cover the answers and solve 10 questions at a time.</li>
+        <li>Write commands exactly, including symbols like <code>^</code>, <code>$</code>, <code>*</code>, and <code>&amp;</code>.</li>
+        <li>Practice reading pointer code slowly from right to left.</li>
+        <li>For every systems call, know what it returns on success and failure.</li>
+        <li>For every recursive function, identify the base case and recursive step.</li>
+      </ol>
+    </div>
+
+    <div class="footer">
+      Built for COS 350 practice.
+    </div>
+  </div>
+
+
+    <div class="section">
+      <h2>Set 9: Arrays, Strings, and Command Arguments</h2>
+
+      <div class="question">
+        <div class="question-number">Question 46</div>
+        <p>In C, if you declare:</p>
+        <pre>int a[10];</pre>
+        <p>What are the valid indexes of the array?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>The valid indexes are <code>0</code> through <code>9</code>.</p>
+            <p>C arrays start at index 0 and go to size-1.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 47</div>
+        <p>Why is this dangerous in C?</p>
+        <pre>a[10] = 0;</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>This writes outside the array bounds.</p>
+            <p>C does not perform automatic bounds checking, so this causes undefined behavior.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 48</div>
+        <p>What does the array name represent in memory?</p>
+        <pre>int a[10];</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>The array name represents the starting address of the array in memory.</p>
+            <p>For example, <code>a</code> is the address of <code>a[0]</code>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 49</div>
+        <p>Why must C strings always include space for one extra character?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p>Because C strings end with the null terminator <code>'\0'</code>.</p>
+            <p>This character marks the end of the string.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 50</div>
+        <p>Why can this code cause a buffer overflow?</p>
+        <pre>char buf[80];
+scanf("%s", buf);</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>scanf</code> does not know the size of the buffer.</p>
+            <p>If the user types more than 79 characters, it will write past the array.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 51</div>
+        <p>How can you fix the previous code to avoid overflow?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <pre>scanf("%79s", buf);</pre>
+            <p>This limits the input length.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 52</div>
+        <p>What does this declaration mean?</p>
+        <pre>int main(int argc, char *argv[])</pre>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>argc</code> is the number of command-line arguments.</p>
+            <p><code>argv</code> is an array of strings containing the arguments.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 53</div>
+        <p>If the command is:</p>
+        <pre>myexpand -t 4</pre>
+        <p>What are the values of argc and argv?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>argc = 3</code></p>
+            <p><code>argv[0] = "myexpand"</code></p>
+            <p><code>argv[1] = "-t"</code></p>
+            <p><code>argv[2] = "4"</code></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 54</div>
+        <p>Which function converts a string to an integer?</p>
+        <details>
+          <summary>Show answer</summary>
+          <div class="answer">
+            <p><code>atoi()</code></p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1186 @@
+[
+    {
+        "question_number": 1,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "easy",
+        "question_text": "Which command displays the manual page for the grep command?",
+        "code_snippet": null,
+        "options": {
+            "a": "help grep",
+            "b": "man grep",
+            "c": "grep --help",
+            "d": "info grep"
+        },
+        "correct_answer": "b",
+        "explanation": "The man command (manual) is the standard way to view documentation for UNIX commands. Manual pages are organized into sections: section 1 for user commands, section 2 for system calls, section 3 for library functions.",
+        "key_concept": null
+    },
+    {
+        "question_number": 2,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "easy",
+        "question_text": "What does the command ls -la do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Lists all files in long format including hidden files",
+            "b": "Lists only hidden files",
+            "c": "Lists files sorted by size",
+            "d": "Lists files recursively"
+        },
+        "correct_answer": "a",
+        "explanation": "-l = long format (permissions, owner, size, date). -a = all files including hidden (those starting with .). Combined as -la or -al.",
+        "key_concept": null
+    },
+    {
+        "question_number": 3,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "medium",
+        "question_text": "Which grep pattern finds words that start with \"pre\"?",
+        "code_snippet": null,
+        "options": {
+            "a": "grep 'pre' words",
+            "b": "grep 'pre$' words",
+            "c": "grep '^pre' words",
+            "d": "grep '*pre' words"
+        },
+        "correct_answer": "c",
+        "explanation": "^ anchors the pattern to the start of the line. $ anchors to the end. Without ^, it matches \"pre\" anywhere in the line.",
+        "key_concept": null
+    },
+    {
+        "question_number": 4,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "medium",
+        "question_text": "What does grep 'ing$' words find?",
+        "code_snippet": null,
+        "options": {
+            "a": "Words containing \"ing\"",
+            "b": "Words ending with \"ing\"",
+            "c": "Words starting with \"ing\"",
+            "d": "Exactly the word \"ing\""
+        },
+        "correct_answer": "b",
+        "explanation": "The $ anchor matches the end of the line, so ing$ matches lines ending with \"ing\".",
+        "key_concept": null
+    },
+    {
+        "question_number": 5,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "easy",
+        "question_text": "Which command shows the current working directory?",
+        "code_snippet": null,
+        "options": {
+            "a": "pwd",
+            "b": "cwd",
+            "c": "dir",
+            "d": "where"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) pwd stands for \"print working directory\".",
+        "key_concept": null
+    },
+    {
+        "question_number": 6,
+        "section": "Section 2: Arrays & Pointers (Lecture 3)",
+        "difficulty": "easy",
+        "question_text": "What is wrong with this code?",
+        "code_snippet": "int a[10];\na[10] = 5;",
+        "options": {
+            "a": "Arrays must be initialized",
+            "b": "Index 10 is out of bounds (valid: 0-9)",
+            "c": "Cannot assign to array elements",
+            "d": "Nothing is wrong"
+        },
+        "correct_answer": "b",
+        "explanation": "Array a[10] has indices 0-9. Accessing a[10] is out of bounds and causes undefined behavior. C does NOT check array bounds at runtime.",
+        "key_concept": null
+    },
+    {
+        "question_number": 7,
+        "section": "Section 2: Arrays & Pointers (Lecture 3)",
+        "difficulty": "medium",
+        "question_text": "How do you declare a pointer to an integer?",
+        "code_snippet": null,
+        "options": {
+            "a": "int &p;",
+            "b": "pointer int p;",
+            "c": "int *p;",
+            "d": "int p*;"
+        },
+        "correct_answer": "c",
+        "explanation": "* in declarations means \"pointer to\". & is the address-of operator used in expressions, not declarations.",
+        "key_concept": null
+    },
+    {
+        "question_number": 8,
+        "section": "Section 2: Arrays & Pointers (Lecture 3)",
+        "difficulty": "hard",
+        "question_text": "What is the output?",
+        "code_snippet": "int x = 7;\nint *p = &x;\nprintf(\"%d\\n\", *p);",
+        "options": {
+            "a": "Address of x",
+            "b": "Garbage value",
+            "c": "Compilation error",
+            "d": "7"
+        },
+        "correct_answer": "d",
+        "explanation": "p stores the address of x. *p dereferences the pointer to get the value at that address, which is 7.",
+        "key_concept": null
+    },
+    {
+        "question_number": 9,
+        "section": "Section 2: Arrays & Pointers (Lecture 3)",
+        "difficulty": "medium",
+        "question_text": "What's wrong with this code?",
+        "code_snippet": "char *p;\n*p = 'A';",
+        "options": {
+            "a": "Should use double quotes",
+            "b": "p doesn't point to valid memory",
+            "c": "Need to cast to char",
+            "d": "Nothing wrong"
+        },
+        "correct_answer": "b",
+        "explanation": "p is uninitialized and doesn't point to valid memory. Dereferencing it causes undefined behavior. Fix: char c; char *p = &c; *p = 'A';",
+        "key_concept": null
+    },
+    {
+        "question_number": 10,
+        "section": "Section 2: Arrays & Pointers (Lecture 3)",
+        "difficulty": "easy",
+        "question_text": "In C, what is the array name equivalent to?",
+        "code_snippet": null,
+        "options": {
+            "a": "Address of the first element",
+            "b": "Value of the first element",
+            "c": "Size of the array",
+            "d": "Number of elements"
+        },
+        "correct_answer": "a",
+        "explanation": "In most contexts, the array name a is equivalent to &a[0], the address of the first element.",
+        "key_concept": null
+    },
+    {
+        "question_number": 11,
+        "section": "Section 3: File I/O & System Calls (Lectures 4, 6)",
+        "difficulty": "medium",
+        "question_text": "What's the difference between open() and fopen()?",
+        "code_snippet": null,
+        "options": {
+            "a": "No difference",
+            "b": "open() returns file descriptor; fopen() returns FILE*",
+            "c": "fopen() is faster",
+            "d": "open() only for text files"
+        },
+        "correct_answer": "b",
+        "explanation": "open() is a system call returning int (file descriptor), used with read(), write(). fopen() is a C library function returning FILE*, used with fread(), fwrite(). fopen() provides buffering.",
+        "key_concept": null
+    },
+    {
+        "question_number": 12,
+        "section": "Section 3: File I/O & System Calls (Lectures 4, 6)",
+        "difficulty": "easy",
+        "question_text": "What does read() return at end of file?",
+        "code_snippet": null,
+        "options": {
+            "a": "-1",
+            "b": "0",
+            "c": "EOF",
+            "d": "NULL"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) Returns 0 at EOF, -1 on error, positive number = bytes read.",
+        "key_concept": null
+    },
+    {
+        "question_number": 13,
+        "section": "Section 3: File I/O & System Calls (Lectures 4, 6)",
+        "difficulty": "easy",
+        "question_text": "What does lseek() do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Searches for a string",
+            "b": "Repositions file offset",
+            "c": "Locks a file",
+            "d": "Seeks to next line"
+        },
+        "correct_answer": "b",
+        "explanation": "lseek(fd, offset, whence) where whence can be SEEK_SET (from start), SEEK_CUR (from current), or SEEK_END (from end).",
+        "key_concept": null
+    },
+    {
+        "question_number": 14,
+        "section": "Section 3: File I/O & System Calls (Lectures 4, 6)",
+        "difficulty": "easy",
+        "question_text": "Which system call closes a file descriptor?",
+        "code_snippet": null,
+        "options": {
+            "a": "close()",
+            "b": "fclose()",
+            "c": "shutdown()",
+            "d": "exit()"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) close(fd) closes file descriptor. fclose() is for FILE* pointers.",
+        "key_concept": null
+    },
+    {
+        "question_number": 15,
+        "section": "Section 3: File I/O & System Calls (Lectures 4, 6)",
+        "difficulty": "medium",
+        "question_text": "What does open() return on failure?",
+        "code_snippet": null,
+        "options": {
+            "a": "0",
+            "b": "NULL",
+            "c": "-1",
+            "d": "EOF"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) open() returns -1 on failure. Check with: if ((fd = open(...)) < 0)",
+        "key_concept": null
+    },
+    {
+        "question_number": 16,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "easy",
+        "question_text": "What marks the end of a C string?",
+        "code_snippet": null,
+        "options": {
+            "a": "Space character",
+            "b": "Null terminator '\\0'",
+            "c": "Newline '\\n'",
+            "d": "EOF"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) C strings end with '\\0'. \"hello\" takes 6 bytes (5 chars + null terminator).",
+        "key_concept": null
+    },
+    {
+        "question_number": 17,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "easy",
+        "question_text": "Why use int with getchar() instead of char?",
+        "code_snippet": null,
+        "options": {
+            "a": "Better performance",
+            "b": "Must hold both char values and EOF",
+            "c": "To save memory",
+            "d": "ANSI requirement"
+        },
+        "correct_answer": "b",
+        "explanation": "getchar() returns all char values (0-255) plus EOF (-1). int can distinguish EOF from valid characters; char cannot.",
+        "key_concept": null
+    },
+    {
+        "question_number": 18,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "easy",
+        "question_text": "Which function converts string \"42\" to integer 42?",
+        "code_snippet": null,
+        "options": {
+            "a": "atoi()",
+            "b": "stoi()",
+            "c": "parseInt()",
+            "d": "toInt()"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) int n = atoi(\"42\"); More robust: strtol()",
+        "key_concept": null
+    },
+    {
+        "question_number": 19,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "medium",
+        "question_text": "What does strlen(\"hello\") return?",
+        "code_snippet": null,
+        "options": {
+            "a": "6",
+            "b": "4",
+            "c": "5",
+            "d": "7"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) Returns 5. strlen() counts chars before '\\0', NOT including '\\0'.",
+        "key_concept": null
+    },
+    {
+        "question_number": 20,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "hard",
+        "question_text": "What's dangerous about scanf(\"%s\", buf) where buf[80]?",
+        "code_snippet": null,
+        "options": {
+            "a": "Won't read spaces",
+            "b": "Can't read strings",
+            "c": "Too slow",
+            "d": "Buffer overflow if input > 79 chars"
+        },
+        "correct_answer": "d",
+        "explanation": "scanf(\"%s\") doesn't know buffer size. Fix: scanf(\"%79s\", buf) limits input to 79 chars + null terminator.",
+        "key_concept": null
+    },
+    {
+        "question_number": 21,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "medium",
+        "question_text": "You want: user read/write, group read, other read. Which is correct?",
+        "code_snippet": null,
+        "options": {
+            "a": "chmod 777 file",
+            "b": "chmod 644 file",
+            "c": "chmod 755 file",
+            "d": "chmod 444 file"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) 644 = rw-r--r-- (6=rw, 4=r, 4=r). r=4, w=2, x=1.",
+        "key_concept": null
+    },
+    {
+        "question_number": 22,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "medium",
+        "question_text": "What does chmod 755 prog mean?",
+        "code_snippet": null,
+        "options": {
+            "a": "Everyone can read/write/execute",
+            "b": "Only owner can execute",
+            "c": "User: rwx, Group: r-x, Other: r-x",
+            "d": "User: r-x, Group: r-x, Other: r-x"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) 755 = rwxr-xr-x. Common for executables.",
+        "key_concept": null
+    },
+    {
+        "question_number": 23,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "hard",
+        "question_text": "What's the octal mask for \"other read\" permission bit?",
+        "code_snippet": null,
+        "options": {
+            "a": "0004",
+            "b": "0040",
+            "c": "0400",
+            "d": "0001"
+        },
+        "correct_answer": "a",
+        "explanation": "Bottom 9 bits: rwxrwxrwx. Other read is bit 2 = 0004. Other write=0002, other execute=0001.",
+        "key_concept": null
+    },
+    {
+        "question_number": 24,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "medium",
+        "question_text": "Which system call gets file information including size and permissions?",
+        "code_snippet": null,
+        "options": {
+            "a": "stat()",
+            "b": "fstat()",
+            "c": "getinfo()",
+            "d": "Both A and B"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: D) Both work. stat() takes filename, fstat() takes file descriptor.",
+        "key_concept": null
+    },
+    {
+        "question_number": 25,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "easy",
+        "question_text": "Which field of struct stat stores file size in bytes?",
+        "code_snippet": null,
+        "options": {
+            "a": "st_length",
+            "b": "st_size",
+            "c": "st_bytes",
+            "d": "st_len"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) info.st_size contains file size in bytes.",
+        "key_concept": null
+    },
+    {
+        "question_number": 26,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "medium",
+        "question_text": "Which provides buffering?",
+        "code_snippet": null,
+        "options": {
+            "a": "fread() and fwrite()",
+            "b": "read() and write()",
+            "c": "Both provide buffering",
+            "d": "Neither provides buffering"
+        },
+        "correct_answer": "a",
+        "explanation": "fread()/fwrite() are buffered (use FILE*). read()/write() are unbuffered system calls (use fd).",
+        "key_concept": null
+    },
+    {
+        "question_number": 27,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "medium",
+        "question_text": "Why is buffering useful?",
+        "code_snippet": null,
+        "options": {
+            "a": "Uses less memory",
+            "b": "Reduces system calls for better performance",
+            "c": "Makes code simpler",
+            "d": "Required by ANSI C"
+        },
+        "correct_answer": "b",
+        "explanation": "Buffering collects data in memory before making system calls, reducing expensive kernel transitions.",
+        "key_concept": null
+    },
+    {
+        "question_number": 28,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "easy",
+        "question_text": "Which function forces buffered output to be written?",
+        "code_snippet": null,
+        "options": {
+            "a": "fflush()",
+            "b": "flush()",
+            "c": "sync()",
+            "d": "fsync()"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) fflush(fp) flushes the buffer for FILE*. fsync() is for file descriptors.",
+        "key_concept": null
+    },
+    {
+        "question_number": 29,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "hard",
+        "question_text": "What are the 4 parameters of qsort()?",
+        "code_snippet": null,
+        "options": {
+            "a": "array, start, end, comparator",
+            "b": "pointer, max, min, function",
+            "c": "base, number of elements, element size, comparison function",
+            "d": "array, length, type, order"
+        },
+        "correct_answer": "c",
+        "explanation": "qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void*, const void*))",
+        "key_concept": null
+    },
+    {
+        "question_number": 30,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "medium",
+        "question_text": "What should a comparison function return if a < b?",
+        "code_snippet": null,
+        "options": {
+            "a": "Positive number",
+            "b": "Negative number",
+            "c": "0",
+            "d": "1"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) Return negative if ab.",
+        "key_concept": null
+    },
+    {
+        "question_number": 31,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "hard",
+        "question_text": "Why does qsort use const void* parameters?",
+        "code_snippet": null,
+        "options": {
+            "a": "To work with any data type (generic)",
+            "b": "To prevent modification",
+            "c": "For better performance",
+            "d": "C standard requirement"
+        },
+        "correct_answer": "a",
+        "explanation": "void* allows qsort to work with any type. Inside comparison function, you cast to the actual type.",
+        "key_concept": null
+    },
+    {
+        "question_number": 32,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "easy",
+        "question_text": "Which function allocates memory dynamically?",
+        "code_snippet": null,
+        "options": {
+            "a": "malloc()",
+            "b": "alloc()",
+            "c": "new()",
+            "d": "create()"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) void *malloc(size_t size) allocates memory on the heap.",
+        "key_concept": null
+    },
+    {
+        "question_number": 33,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "medium",
+        "question_text": "What does malloc() return on failure?",
+        "code_snippet": null,
+        "options": {
+            "a": "-1",
+            "b": "0",
+            "c": "NULL",
+            "d": "EOF"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) Always check: if ((p = malloc(n)) == NULL)",
+        "key_concept": null
+    },
+    {
+        "question_number": 34,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "easy",
+        "question_text": "Which function frees dynamically allocated memory?",
+        "code_snippet": null,
+        "options": {
+            "a": "delete()",
+            "b": "free()",
+            "c": "release()",
+            "d": "dealloc()"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) free(ptr) releases memory allocated by malloc/calloc/realloc.",
+        "key_concept": null
+    },
+    {
+        "question_number": 35,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "medium",
+        "question_text": "What's wrong with using memory after calling free()?",
+        "code_snippet": null,
+        "options": {
+            "a": "Slower performance",
+            "b": "Uses more memory",
+            "c": "Nothing wrong",
+            "d": "Undefined behavior (dangling pointer)"
+        },
+        "correct_answer": "d",
+        "explanation": "Correct: D) Using freed memory causes undefined behavior. Set pointer to NULL after free.",
+        "key_concept": null
+    },
+    {
+        "question_number": 36,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "medium",
+        "question_text": "What's the difference between hard link and symbolic link?",
+        "code_snippet": null,
+        "options": {
+            "a": "No difference",
+            "b": "Hard link shares inode; symbolic link is separate file with path",
+            "c": "Hard link is faster",
+            "d": "Symbolic link shares inode"
+        },
+        "correct_answer": "b",
+        "explanation": "Hard link: another name for same inode/data. Symbolic link: separate file containing pathname. If original deleted, hard link still works, symlink breaks.",
+        "key_concept": null
+    },
+    {
+        "question_number": 37,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "easy",
+        "question_text": "Which command creates a symbolic link?",
+        "code_snippet": null,
+        "options": {
+            "a": "ln target link",
+            "b": "link target link",
+            "c": "ln -s target link",
+            "d": "symlink target link"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) ln -s creates symbolic link. ln without -s creates hard link.",
+        "key_concept": null
+    },
+    {
+        "question_number": 38,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "medium",
+        "question_text": "What does opendir() return?",
+        "code_snippet": null,
+        "options": {
+            "a": "DIR* (directory stream pointer)",
+            "b": "File descriptor (int)",
+            "c": "Array of filenames",
+            "d": "FILE* pointer"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) DIR *dp = opendir(dirname). Use with readdir(), close with closedir().",
+        "key_concept": null
+    },
+    {
+        "question_number": 39,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "medium",
+        "question_text": "Which function reads the next directory entry?",
+        "code_snippet": null,
+        "options": {
+            "a": "getdir()",
+            "b": "readdir()",
+            "c": "nextdir()",
+            "d": "scandir()"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) struct dirent *entry = readdir(dp). Returns NULL at end.",
+        "key_concept": null
+    },
+    {
+        "question_number": 40,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "medium",
+        "question_text": "What does \"Unix treats devices like files\" mean?",
+        "code_snippet": null,
+        "options": {
+            "a": "Devices can be accessed with open(), read(), write(), close()",
+            "b": "Devices are stored as files",
+            "c": "All devices are text files",
+            "d": "Devices must have file extensions"
+        },
+        "correct_answer": "a",
+        "explanation": "Many devices use the same interface as regular files. Example: open(\"/dev/tty\", O_RDWR)",
+        "key_concept": null
+    },
+    {
+        "question_number": 41,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "medium",
+        "question_text": "Which functions get/set terminal attributes?",
+        "code_snippet": null,
+        "options": {
+            "a": "getterm() and setterm()",
+            "b": "tcgetattr() and tcsetattr()",
+            "c": "ioctl() only",
+            "d": "stty() only"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) Work with struct termios to control echo, canonical mode, etc.",
+        "key_concept": null
+    },
+    {
+        "question_number": 42,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "easy",
+        "question_text": "Why would a password program turn off echo?",
+        "code_snippet": null,
+        "options": {
+            "a": "For better performance",
+            "b": "To validate input",
+            "c": "So password isn't shown on screen",
+            "d": "Required by security standards"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) Clear ECHO flag in termios to hide typed characters.",
+        "key_concept": null
+    },
+    {
+        "question_number": 43,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "medium",
+        "question_text": "What does fcntl(fd, F_GETFL) do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Gets file status flags",
+            "b": "Gets file name",
+            "c": "Gets file size",
+            "d": "Gets file lock"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) Returns flags like O_RDONLY, O_NONBLOCK. Use F_SETFL to modify.",
+        "key_concept": null
+    },
+    {
+        "question_number": 44,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "easy",
+        "question_text": "What signal is sent by Ctrl-C?",
+        "code_snippet": null,
+        "options": {
+            "a": "SIGTERM",
+            "b": "SIGINT",
+            "c": "SIGKILL",
+            "d": "SIGQUIT"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) SIGINT (interrupt). Ctrl-Z sends SIGTSTP (stop).",
+        "key_concept": null
+    },
+    {
+        "question_number": 45,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "easy",
+        "question_text": "What's the default signal sent by kill pid?",
+        "code_snippet": null,
+        "options": {
+            "a": "SIGTERM",
+            "b": "SIGINT",
+            "c": "SIGKILL",
+            "d": "SIGHUP"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) SIGTERM (15). Use kill -9 pid for SIGKILL.",
+        "key_concept": null
+    },
+    {
+        "question_number": 46,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "medium",
+        "question_text": "Which signal CANNOT be caught or ignored?",
+        "code_snippet": null,
+        "options": {
+            "a": "SIGINT",
+            "b": "SIGTERM",
+            "c": "SIGKILL",
+            "d": "SIGALRM"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) SIGKILL (9) and SIGSTOP cannot be caught, blocked, or ignored.",
+        "key_concept": null
+    },
+    {
+        "question_number": 47,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "medium",
+        "question_text": "What does signal(SIGINT, SIG_IGN) do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Installs default handler",
+            "b": "Ignores SIGINT",
+            "c": "Blocks SIGINT",
+            "d": "Syntax error"
+        },
+        "correct_answer": "b",
+        "explanation": "Correct: B) Makes process ignore SIGINT (Ctrl-C won't interrupt).",
+        "key_concept": null
+    },
+    {
+        "question_number": 48,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "medium",
+        "question_text": "What does alarm(5) do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Schedules SIGALRM in 5 seconds",
+            "b": "Sleeps for 5 seconds",
+            "c": "Sends signal 5",
+            "d": "Sets alarm priority to 5"
+        },
+        "correct_answer": "a",
+        "explanation": "Correct: A) Kernel sends SIGALRM after 5 seconds. Only one alarm at a time.",
+        "key_concept": null
+    },
+    {
+        "question_number": 49,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "easy",
+        "question_text": "What does pause() do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Pauses for 1 second",
+            "b": "Stops the program",
+            "c": "Waits until a signal arrives",
+            "d": "Pauses output"
+        },
+        "correct_answer": "c",
+        "explanation": "Correct: C) Suspends process until any signal is delivered.",
+        "key_concept": null
+    },
+    {
+        "question_number": 50,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "hard",
+        "question_text": "What happens with this code?",
+        "code_snippet": "signal(SIGALRM, handler);\nalarm(3);\npause();",
+        "options": {
+            "a": "Waits forever",
+            "b": "Waits 3 seconds, handler runs, continues",
+            "c": "Immediate handler execution",
+            "d": "Compilation error"
+        },
+        "correct_answer": "b",
+        "explanation": "Install handler \u2192 schedule alarm \u2192 wait in pause() \u2192 after 3 seconds SIGALRM arrives \u2192 handler runs \u2192 pause() returns.",
+        "key_concept": null
+    },
+    {
+        "question_number": 51,
+        "section": "Section 1: UNIX Basics & Commands (Lecture 1)",
+        "difficulty": "easy",
+        "question_text": "Which command opens the manual page for the find command?",
+        "code_snippet": null,
+        "options": {
+            "a": "help find",
+            "b": "man find",
+            "c": "find --manual",
+            "d": "info man find"
+        },
+        "correct_answer": "b",
+        "explanation": "man find opens the manual page for the find command. This is the standard Unix way to read command documentation.",
+        "key_concept": null
+    },
+    {
+        "question_number": 52,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "medium",
+        "question_text": "Which system call is commonly used to retrieve file information such as size and permissions?",
+        "code_snippet": null,
+        "options": {
+            "a": "stat()",
+            "b": "chmod()",
+            "c": "lseek()",
+            "d": "readdir()"
+        },
+        "correct_answer": "a",
+        "explanation": "stat() fills a struct stat with metadata about a file, including file size, mode bits, ownership, and timestamps.",
+        "key_concept": null
+    },
+    {
+        "question_number": 53,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "easy",
+        "question_text": "Which field of struct stat stores the file size in bytes?",
+        "code_snippet": null,
+        "options": {
+            "a": "st_mode",
+            "b": "st_blocks",
+            "c": "st_size",
+            "d": "st_uid"
+        },
+        "correct_answer": "c",
+        "explanation": "st_size stores the logical file size in bytes.",
+        "key_concept": null
+    },
+    {
+        "question_number": 54,
+        "section": "Section 5: File Permissions (Lecture 11)",
+        "difficulty": "medium",
+        "question_text": "Which octal mask represents the other-read permission bit?",
+        "code_snippet": null,
+        "options": {
+            "a": "0400",
+            "b": "0040",
+            "c": "0004",
+            "d": "0001"
+        },
+        "correct_answer": "c",
+        "explanation": "The permission bits are grouped as user, group, and other. The read bit for other is octal 0004.",
+        "key_concept": null
+    },
+    {
+        "question_number": 55,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "medium",
+        "question_text": "Why is getchar() usually stored in an int instead of a char?",
+        "code_snippet": null,
+        "options": {
+            "a": "int is faster than char",
+            "b": "int can store EOF as well as character values",
+            "c": "char cannot hold ASCII values",
+            "d": "getchar() returns a pointer"
+        },
+        "correct_answer": "b",
+        "explanation": "getchar() must be able to return every unsigned char value plus EOF, so int is used.",
+        "key_concept": null
+    },
+    {
+        "question_number": 56,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "easy",
+        "question_text": "In int main(int argc, char *argv[]), what does argv contain?",
+        "code_snippet": null,
+        "options": {
+            "a": "An array of command-line argument strings",
+            "b": "An integer error code",
+            "c": "The environment variables",
+            "d": "The size of each command-line argument"
+        },
+        "correct_answer": "a",
+        "explanation": "argv is an array of strings, one for each command-line argument. argc is the count of those arguments.",
+        "key_concept": null
+    },
+    {
+        "question_number": 57,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "easy",
+        "question_text": "Which function converts the string \"42\" to the integer 42?",
+        "code_snippet": null,
+        "options": {
+            "a": "strlen()",
+            "b": "atoi()",
+            "c": "strcmp()",
+            "d": "sprintf()"
+        },
+        "correct_answer": "b",
+        "explanation": "atoi() converts a string representing an integer into an int value.",
+        "key_concept": null
+    },
+    {
+        "question_number": 58,
+        "section": "Section 4: Strings (Lecture 5)",
+        "difficulty": "medium",
+        "question_text": "What does strlen(\"cat\") return?",
+        "code_snippet": null,
+        "options": {
+            "a": "2",
+            "b": "3",
+            "c": "4",
+            "d": "It depends on the compiler"
+        },
+        "correct_answer": "b",
+        "explanation": "strlen counts visible characters before the null terminator. The string \"cat\" has length 3.",
+        "key_concept": null
+    },
+    {
+        "question_number": 59,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "medium",
+        "question_text": "When stdout is connected to a terminal, what usually causes line-buffered output to flush?",
+        "code_snippet": null,
+        "options": {
+            "a": "A newline character",
+            "b": "The next call to scanf()",
+            "c": "The file descriptor number being 1",
+            "d": "Every character automatically flushes"
+        },
+        "correct_answer": "a",
+        "explanation": "Line-buffered output is typically flushed when a newline is written, when the buffer fills, or when fflush() is called.",
+        "key_concept": null
+    },
+    {
+        "question_number": 60,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "easy",
+        "question_text": "Which standard stream is commonly unbuffered so error messages appear immediately?",
+        "code_snippet": null,
+        "options": {
+            "a": "stdin",
+            "b": "stdout",
+            "c": "stderr",
+            "d": "stdlog"
+        },
+        "correct_answer": "c",
+        "explanation": "stderr is commonly unbuffered so diagnostics are displayed right away.",
+        "key_concept": null
+    },
+    {
+        "question_number": 61,
+        "section": "Section 6: Buffering (Lecture 7)",
+        "difficulty": "hard",
+        "question_text": "Which function can be used to change the buffering behavior of a FILE * stream?",
+        "code_snippet": null,
+        "options": {
+            "a": "setvbuf()",
+            "b": "lseek()",
+            "c": "fcntl()",
+            "d": "rewind()"
+        },
+        "correct_answer": "a",
+        "explanation": "setvbuf() configures whether a stream is fully buffered, line buffered, or unbuffered.",
+        "key_concept": null
+    },
+    {
+        "question_number": 62,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "medium",
+        "question_text": "How should you pass a comparison function named compar to qsort()?",
+        "code_snippet": null,
+        "options": {
+            "a": "compar()",
+            "b": "&compar()",
+            "c": "compar",
+            "d": "*compar"
+        },
+        "correct_answer": "c",
+        "explanation": "You pass the function pointer by using the function name itself, such as qsort(base, n, size, compar).",
+        "key_concept": null
+    },
+    {
+        "question_number": 63,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "medium",
+        "question_text": "What parameter type does a qsort comparison function normally receive?",
+        "code_snippet": null,
+        "options": {
+            "a": "int *",
+            "b": "char *",
+            "c": "const void *",
+            "d": "FILE *"
+        },
+        "correct_answer": "c",
+        "explanation": "qsort works with generic data, so the comparison callback receives const void * pointers that you cast to the correct type.",
+        "key_concept": null
+    },
+    {
+        "question_number": 64,
+        "section": "Section 7: Function Pointers & qsort (Lecture 8)",
+        "difficulty": "hard",
+        "question_text": "Which declaration creates fp as a pointer to a function taking two int parameters and returning int?",
+        "code_snippet": null,
+        "options": {
+            "a": "int fp(int, int);",
+            "b": "int *fp(int, int);",
+            "c": "int (*fp)(int, int);",
+            "d": "function int fp(int, int);"
+        },
+        "correct_answer": "c",
+        "explanation": "The parentheses are required so *fp binds as a pointer to a function rather than a function returning a pointer.",
+        "key_concept": null
+    },
+    {
+        "question_number": 65,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "medium",
+        "question_text": "What is the main difference between malloc() and calloc()?",
+        "code_snippet": null,
+        "options": {
+            "a": "calloc() returns a FILE *",
+            "b": "calloc() initializes the allocated memory to zero",
+            "c": "malloc() only allocates arrays",
+            "d": "malloc() automatically frees memory"
+        },
+        "correct_answer": "b",
+        "explanation": "calloc() allocates memory for multiple elements and zeros the bytes. malloc() allocates without initializing them.",
+        "key_concept": null
+    },
+    {
+        "question_number": 66,
+        "section": "Section 8: Dynamic Memory (Lecture 9)",
+        "difficulty": "medium",
+        "question_text": "What does realloc(ptr, new_size) do?",
+        "code_snippet": null,
+        "options": {
+            "a": "It always frees ptr",
+            "b": "It changes the size of an allocated block, possibly moving it",
+            "c": "It clears the memory and returns the same pointer",
+            "d": "It allocates stack memory"
+        },
+        "correct_answer": "b",
+        "explanation": "realloc() resizes an existing allocation. It may return the same address or a new one if the block must move.",
+        "key_concept": null
+    },
+    {
+        "question_number": 67,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "easy",
+        "question_text": "What does readdir() return when there are no more directory entries?",
+        "code_snippet": null,
+        "options": {
+            "a": "EOF",
+            "b": "-1",
+            "c": "NULL",
+            "d": "An empty struct dirent"
+        },
+        "correct_answer": "c",
+        "explanation": "readdir() returns NULL when it reaches the end of the directory stream or on error.",
+        "key_concept": null
+    },
+    {
+        "question_number": 68,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "easy",
+        "question_text": "Which function closes a directory stream opened with opendir()?",
+        "code_snippet": null,
+        "options": {
+            "a": "close()",
+            "b": "closedir()",
+            "c": "fclose()",
+            "d": "enddir()"
+        },
+        "correct_answer": "b",
+        "explanation": "closedir() closes a DIR * returned by opendir().",
+        "key_concept": null
+    },
+    {
+        "question_number": 69,
+        "section": "Section 9: Directories (Lectures 10, 12)",
+        "difficulty": "medium",
+        "question_text": "Which statement about hard links is true?",
+        "code_snippet": null,
+        "options": {
+            "a": "They can cross filesystems easily",
+            "b": "They are separate copies of a file's data",
+            "c": "They are another name for the same inode",
+            "d": "They store the target path as text"
+        },
+        "correct_answer": "c",
+        "explanation": "A hard link is another directory entry referring to the same inode and file data.",
+        "key_concept": null
+    },
+    {
+        "question_number": 70,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "medium",
+        "question_text": "What does canonical terminal mode usually do?",
+        "code_snippet": null,
+        "options": {
+            "a": "Reads input one line at a time after Enter is pressed",
+            "b": "Disables all signal generation",
+            "c": "Turns every stream into binary mode",
+            "d": "Prevents the terminal from echoing input"
+        },
+        "correct_answer": "a",
+        "explanation": "Canonical mode is line-oriented terminal input. Characters are typically processed after the user presses Enter.",
+        "key_concept": null
+    },
+    {
+        "question_number": 71,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "medium",
+        "question_text": "Which termios flag is typically cleared to stop typed characters from being echoed on the screen?",
+        "code_snippet": null,
+        "options": {
+            "a": "ICANON",
+            "b": "ECHO",
+            "c": "O_APPEND",
+            "d": "SIGINT"
+        },
+        "correct_answer": "b",
+        "explanation": "Programs such as password prompts often clear the ECHO flag so typed characters are not displayed.",
+        "key_concept": null
+    },
+    {
+        "question_number": 72,
+        "section": "Section 10: Devices & Terminal Control (Lecture 13)",
+        "difficulty": "hard",
+        "question_text": "What does ttyname(fd) return when fd refers to a terminal device?",
+        "code_snippet": null,
+        "options": {
+            "a": "The terminal's process ID",
+            "b": "The pathname of the terminal device",
+            "c": "The terminal baud rate",
+            "d": "A struct termios"
+        },
+        "correct_answer": "b",
+        "explanation": "ttyname() returns a string pathname such as /dev/ttys001 for a terminal file descriptor.",
+        "key_concept": null
+    },
+    {
+        "question_number": 73,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "easy",
+        "question_text": "What signal is sent by kill -9 pid?",
+        "code_snippet": null,
+        "options": {
+            "a": "SIGTERM",
+            "b": "SIGINT",
+            "c": "SIGKILL",
+            "d": "SIGSTOP"
+        },
+        "correct_answer": "c",
+        "explanation": "kill -9 sends SIGKILL, which terminates the process immediately and cannot be caught or ignored.",
+        "key_concept": null
+    },
+    {
+        "question_number": 74,
+        "section": "Section 11: Signals (Lecture 14)",
+        "difficulty": "hard",
+        "question_text": "If pause() returns because a caught signal was delivered, what value does pause() return?",
+        "code_snippet": null,
+        "options": {
+            "a": "0",
+            "b": "1",
+            "c": "-1",
+            "d": "The signal number"
+        },
+        "correct_answer": "c",
+        "explanation": "pause() returns -1 after a signal handler runs, and errno is typically set to EINTR.",
+        "key_concept": null
+    }
+]

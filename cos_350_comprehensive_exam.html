@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COS 350 Comprehensive Practice Exam - 50 Questions</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --success: #10b981;
+      --success-soft: #d1fae5;
+      --danger: #ef4444;
+      --danger-soft: #fee2e2;
+      --warning: #f59e0b;
+      --warning-soft: #fef3c7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #ffffff, #eff6ff);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      margin-bottom: 28px;
+    }
+    h1, h2, h3, h4 { margin-top: 0; }
+    h1 { font-size: 2.25rem; margin-bottom: 12px; color: var(--accent); }
+    h2 { font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--line); padding-bottom: 8px; }
+    h3 { font-size: 1.2rem; margin-bottom: 12px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+    .question {
+      background: #fafbfc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s;
+    }
+    .question.correct {
+      border-color: var(--success);
+      background: var(--success-soft);
+    }
+    .question.incorrect {
+      border-color: var(--danger);
+      background: var(--danger-soft);
+    }
+    .question-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .question-number {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+    .difficulty {
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .difficulty.easy { background: var(--success-soft); color: var(--success); }
+    .difficulty.medium { background: var(--warning-soft); color: var(--warning); }
+    .difficulty.hard { background: var(--danger-soft); color: var(--danger); }
+    pre, code {
+      font-family: "SF Mono", Monaco, "Courier New", monospace;
+      background: #f8fafc;
+    }
+    pre {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+    code {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .mc-options {
+      margin: 16px 0;
+    }
+    .mc-option {
+      background: white;
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: start;
+      gap: 10px;
+    }
+    .mc-option:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .mc-option.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .mc-option.correct-answer {
+      border-color: var(--success);
+      background: var(--success-soft);
+    }
+    .mc-option.wrong-answer {
+      border-color: var(--danger);
+      background: var(--danger-soft);
+    }
+    .mc-option input[type="radio"] {
+      margin-top: 4px;
+      cursor: pointer;
+    }
+    .mc-option label {
+      cursor: pointer;
+      flex: 1;
+    }
+    details {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 14px 18px;
+      background: #f9fafb;
+      font-weight: bold;
+      user-select: none;
+    }
+    .answer {
+      padding: 18px;
+      background: white;
+      border-top: 1px solid var(--line);
+    }
+    .explanation {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+    .progress-tracker {
+      position: sticky;
+      top: 20px;
+      background: white;
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      z-index: 100;
+    }
+    .progress-bar {
+      background: var(--line);
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .stats {
+      display: flex;
+      gap: 12px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      margin: 8px;
+    }
+    .btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: var(--muted);
+    }
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+    .btn-success {
+      background: var(--success);
+    }
+    .btn-success:hover {
+      background: #059669;
+    }
+    .score-panel {
+      background: linear-gradient(135deg, var(--success), var(--accent));
+      color: white;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 20px 0;
+      display: none;
+    }
+    .score-panel.show {
+      display: block;
+    }
+    .score-panel h2 {
+      color: white;
+      border: none;
+      margin-bottom: 16px;
+    }
+    .score-number {
+      font-size: 4rem;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>🎯 COS 350 Comprehensive Practice Exam</h1>
+      <p><strong>50 Questions</strong> covering all lecture topics (L1-L14): UNIX commands, C programming, file I/O, permissions, pointers, signals, and more.</p>
+
+      <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="checkAllAnswers()">✓ Check My Answers</button>
+        <button class="btn btn-secondary" onclick="resetExam()">↻ Reset Exam</button>
+        <button class="btn" onclick="window.print()">🖨 Print Exam</button>
+      </div>
+    </div>
+
+    <div class="score-panel" id="scorePanel">
+      <h2>📊 Your Score</h2>
+      <div class="score-number" id="scoreNumber">0/50</div>
+      <div id="scoreMessage"></div>
+    </div>
+
+    <div class="progress-tracker">
+      <h3>📈 Progress</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="answeredCount">0</div>
+          <div>Answered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">50</div>
+          <div>Total</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="percentComplete">0%</div>
+          <div>Complete</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: UNIX BASICS (L1) -->
+    <div class="section">
+      <h2>Section 1: UNIX Basics & Commands (Lecture 1)</h2>
+
+      <div class="question" data-question="1" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q1</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which command displays the manual page for the <code>grep</code> command?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q1" value="a"><label>A) <code>help grep</code></label></div>
+          <div class="mc-option"><input type="radio" name="q1" value="b"><label>B) <code>man grep</code></label></div>
+          <div class="mc-option"><input type="radio" name="q1" value="c"><label>C) <code>grep --help</code></label></div>
+          <div class="mc-option"><input type="radio" name="q1" value="d"><label>D) <code>info grep</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> <code>man grep</code> displays the manual page.</p>
+          <div class="explanation">The <code>man</code> command (manual) is the standard way to view documentation for UNIX commands. Manual pages are organized into sections: section 1 for user commands, section 2 for system calls, section 3 for library functions.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="2" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q2</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What does the command <code>ls -la</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q2" value="a"><label>A) Lists all files in long format including hidden files</label></div>
+          <div class="mc-option"><input type="radio" name="q2" value="b"><label>B) Lists only hidden files</label></div>
+          <div class="mc-option"><input type="radio" name="q2" value="c"><label>C) Lists files sorted by size</label></div>
+          <div class="mc-option"><input type="radio" name="q2" value="d"><label>D) Lists files recursively</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation"><code>-l</code> = long format (permissions, owner, size, date). <code>-a</code> = all files including hidden (those starting with .). Combined as <code>-la</code> or <code>-al</code>.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="3" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q3</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which grep pattern finds words that start with "pre"?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q3" value="a"><label>A) <code>grep 'pre' words</code></label></div>
+          <div class="mc-option"><input type="radio" name="q3" value="b"><label>B) <code>grep 'pre$' words</code></label></div>
+          <div class="mc-option"><input type="radio" name="q3" value="c"><label>C) <code>grep '^pre' words</code></label></div>
+          <div class="mc-option"><input type="radio" name="q3" value="d"><label>D) <code>grep '*pre' words</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong></p>
+          <div class="explanation"><code>^</code> anchors the pattern to the start of the line. <code>$</code> anchors to the end. Without <code>^</code>, it matches "pre" anywhere in the line.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="4" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q4</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>grep 'ing$' words</code> find?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q3" value="a"><label>A) Words containing "ing"</label></div>
+          <div class="mc-option"><input type="radio" name="q4" value="b"><label>B) Words ending with "ing"</label></div>
+          <div class="mc-option"><input type="radio" name="q4" value="c"><label>C) Words starting with "ing"</label></div>
+          <div class="mc-option"><input type="radio" name="q4" value="d"><label>D) Exactly the word "ing"</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation">The <code>$</code> anchor matches the end of the line, so <code>ing$</code> matches lines ending with "ing".</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="5" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q5</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which command shows the current working directory?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q5" value="a"><label>A) <code>pwd</code></label></div>
+          <div class="mc-option"><input type="radio" name="q5" value="b"><label>B) <code>cwd</code></label></div>
+          <div class="mc-option"><input type="radio" name="q5" value="c"><label>C) <code>dir</code></label></div>
+          <div class="mc-option"><input type="radio" name="q5" value="d"><label>D) <code>where</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>pwd</code> stands for "print working directory".</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 2: ARRAYS & POINTERS (L3) -->
+    <div class="section">
+      <h2>Section 2: Arrays & Pointers (Lecture 3)</h2>
+
+      <div class="question" data-question="6" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q6</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What is wrong with this code?</strong></p>
+        <pre>int a[10];
+a[10] = 5;</pre>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q6" value="a"><label>A) Arrays must be initialized</label></div>
+          <div class="mc-option"><input type="radio" name="q6" value="b"><label>B) Index 10 is out of bounds (valid: 0-9)</label></div>
+          <div class="mc-option"><input type="radio" name="q6" value="c"><label>C) Cannot assign to array elements</label></div>
+          <div class="mc-option"><input type="radio" name="q6" value="d"><label>D) Nothing is wrong</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation">Array <code>a[10]</code> has indices 0-9. Accessing <code>a[10]</code> is out of bounds and causes undefined behavior. C does NOT check array bounds at runtime.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="7" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q7</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>How do you declare a pointer to an integer?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q7" value="a"><label>A) <code>int &p;</code></label></div>
+          <div class="mc-option"><input type="radio" name="q7" value="b"><label>B) <code>pointer int p;</code></label></div>
+          <div class="mc-option"><input type="radio" name="q7" value="c"><label>C) <code>int *p;</code></label></div>
+          <div class="mc-option"><input type="radio" name="q7" value="d"><label>D) <code>int p*;</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> <code>int *p;</code> declares p as a pointer to int.</p>
+          <div class="explanation"><code>*</code> in declarations means "pointer to". <code>&</code> is the address-of operator used in expressions, not declarations.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="8" data-answer="d">
+        <div class="question-header">
+          <span class="question-number">Q8</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>What is the output?</strong></p>
+        <pre>int x = 7;
+int *p = &x;
+printf("%d\n", *p);</pre>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q8" value="a"><label>A) Address of x</label></div>
+          <div class="mc-option"><input type="radio" name="q8" value="b"><label>B) Garbage value</label></div>
+          <div class="mc-option"><input type="radio" name="q8" value="c"><label>C) Compilation error</label></div>
+          <div class="mc-option"><input type="radio" name="q8" value="d"><label>D) 7</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: D)</strong> Output is 7.</p>
+          <div class="explanation"><code>p</code> stores the address of <code>x</code>. <code>*p</code> dereferences the pointer to get the value at that address, which is 7.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="9" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q9</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What's wrong with this code?</strong></p>
+        <pre>char *p;
+*p = 'A';</pre>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q9" value="a"><label>A) Should use double quotes</label></div>
+          <div class="mc-option"><input type="radio" name="q9" value="b"><label>B) p doesn't point to valid memory</label></div>
+          <div class="mc-option"><input type="radio" name="q9" value="c"><label>C) Need to cast to char</label></div>
+          <div class="mc-option"><input type="radio" name="q9" value="d"><label>D) Nothing wrong</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation"><code>p</code> is uninitialized and doesn't point to valid memory. Dereferencing it causes undefined behavior. Fix: <code>char c; char *p = &c; *p = 'A';</code></div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="10" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q10</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>In C, what is the array name equivalent to?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q10" value="a"><label>A) Address of the first element</label></div>
+          <div class="mc-option"><input type="radio" name="q10" value="b"><label>B) Value of the first element</label></div>
+          <div class="mc-option"><input type="radio" name="q10" value="c"><label>C) Size of the array</label></div>
+          <div class="mc-option"><input type="radio" name="q10" value="d"><label>D) Number of elements</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation">In most contexts, the array name <code>a</code> is equivalent to <code>&a[0]</code>, the address of the first element.</div>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 3: FILE I/O (L4, L6) -->
+    <div class="section">
+      <h2>Section 3: File I/O & System Calls (Lectures 4, 6)</h2>
+
+      <div class="question" data-question="11" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q11</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What's the difference between <code>open()</code> and <code>fopen()</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q11" value="a"><label>A) No difference</label></div>
+          <div class="mc-option"><input type="radio" name="q11" value="b"><label>B) <code>open()</code> returns file descriptor; <code>fopen()</code> returns FILE*</label></div>
+          <div class="mc-option"><input type="radio" name="q11" value="c"><label>C) <code>fopen()</code> is faster</label></div>
+          <div class="mc-option"><input type="radio" name="q11" value="d"><label>D) <code>open()</code> only for text files</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation"><code>open()</code> is a system call returning int (file descriptor), used with <code>read()</code>, <code>write()</code>. <code>fopen()</code> is a C library function returning FILE*, used with <code>fread()</code>, <code>fwrite()</code>. <code>fopen()</code> provides buffering.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="12" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q12</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What does <code>read()</code> return at end of file?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q12" value="a"><label>A) -1</label></div>
+          <div class="mc-option"><input type="radio" name="q12" value="b"><label>B) 0</label></div>
+          <div class="mc-option"><input type="radio" name="q12" value="c"><label>C) EOF</label></div>
+          <div class="mc-option"><input type="radio" name="q12" value="d"><label>D) NULL</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> Returns 0 at EOF, -1 on error, positive number = bytes read.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="13" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q13</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What does <code>lseek()</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q13" value="a"><label>A) Searches for a string</label></div>
+          <div class="mc-option"><input type="radio" name="q13" value="b"><label>B) Repositions file offset</label></div>
+          <div class="mc-option"><input type="radio" name="q13" value="c"><label>C) Locks a file</label></div>
+          <div class="mc-option"><input type="radio" name="q13" value="d"><label>D) Seeks to next line</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation"><code>lseek(fd, offset, whence)</code> where whence can be SEEK_SET (from start), SEEK_CUR (from current), or SEEK_END (from end).</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="14" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q14</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which system call closes a file descriptor?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q14" value="a"><label>A) <code>close()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q14" value="b"><label>B) <code>fclose()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q14" value="c"><label>C) <code>shutdown()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q14" value="d"><label>D) <code>exit()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>close(fd)</code> closes file descriptor. <code>fclose()</code> is for FILE* pointers.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="15" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q15</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>open()</code> return on failure?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q15" value="a"><label>A) 0</label></div>
+          <div class="mc-option"><input type="radio" name="q15" value="b"><label>B) NULL</label></div>
+          <div class="mc-option"><input type="radio" name="q15" value="c"><label>C) -1</label></div>
+          <div class="mc-option"><input type="radio" name="q15" value="d"><label>D) EOF</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> <code>open()</code> returns -1 on failure. Check with: <code>if ((fd = open(...)) < 0)</code></p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 4: STRINGS (L5) -->
+    <div class="section">
+      <h2>Section 4: Strings (Lecture 5)</h2>
+
+      <div class="question" data-question="16" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q16</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What marks the end of a C string?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q16" value="a"><label>A) Space character</label></div>
+          <div class="mc-option"><input type="radio" name="q16" value="b"><label>B) Null terminator '\0'</label></div>
+          <div class="mc-option"><input type="radio" name="q16" value="c"><label>C) Newline '\n'</label></div>
+          <div class="mc-option"><input type="radio" name="q16" value="d"><label>D) EOF</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> C strings end with '\0'. "hello" takes 6 bytes (5 chars + null terminator).</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="17" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q17</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Why use <code>int</code> with <code>getchar()</code> instead of <code>char</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q17" value="a"><label>A) Better performance</label></div>
+          <div class="mc-option"><input type="radio" name="q17" value="b"><label>B) Must hold both char values and EOF</label></div>
+          <div class="mc-option"><input type="radio" name="q17" value="c"><label>C) To save memory</label></div>
+          <div class="mc-option"><input type="radio" name="q17" value="d"><label>D) ANSI requirement</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation"><code>getchar()</code> returns all char values (0-255) plus EOF (-1). <code>int</code> can distinguish EOF from valid characters; <code>char</code> cannot.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="18" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q18</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which function converts string "42" to integer 42?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q18" value="a"><label>A) <code>atoi()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q18" value="b"><label>B) <code>stoi()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q18" value="c"><label>C) <code>parseInt()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q18" value="d"><label>D) <code>toInt()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>int n = atoi("42");</code> More robust: <code>strtol()</code></p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="19" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q19</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>strlen("hello")</code> return?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q19" value="a"><label>A) 6</label></div>
+          <div class="mc-option"><input type="radio" name="q19" value="b"><label>B) 4</label></div>
+          <div class="mc-option"><input type="radio" name="q19" value="c"><label>C) 5</label></div>
+          <div class="mc-option"><input type="radio" name="q19" value="d"><label>D) 7</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> Returns 5. <code>strlen()</code> counts chars before '\0', NOT including '\0'.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="20" data-answer="d">
+        <div class="question-header">
+          <span class="question-number">Q20</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>What's dangerous about <code>scanf("%s", buf)</code> where <code>buf[80]</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q20" value="a"><label>A) Won't read spaces</label></div>
+          <div class="mc-option"><input type="radio" name="q20" value="b"><label>B) Can't read strings</label></div>
+          <div class="mc-option"><input type="radio" name="q20" value="c"><label>C) Too slow</label></div>
+          <div class="mc-option"><input type="radio" name="q20" value="d"><label>D) Buffer overflow if input > 79 chars</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: D)</strong></p>
+          <div class="explanation"><code>scanf("%s")</code> doesn't know buffer size. Fix: <code>scanf("%79s", buf)</code> limits input to 79 chars + null terminator.</div>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 5: PERMISSIONS (L11) -->
+    <div class="section">
+      <h2>Section 5: File Permissions (Lecture 11)</h2>
+
+      <div class="question" data-question="21" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q21</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>You want: user read/write, group read, other read. Which is correct?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q21" value="a"><label>A) <code>chmod 777 file</code></label></div>
+          <div class="mc-option"><input type="radio" name="q21" value="b"><label>B) <code>chmod 644 file</code></label></div>
+          <div class="mc-option"><input type="radio" name="q21" value="c"><label>C) <code>chmod 755 file</code></label></div>
+          <div class="mc-option"><input type="radio" name="q21" value="d"><label>D) <code>chmod 444 file</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> 644 = rw-r--r-- (6=rw, 4=r, 4=r). r=4, w=2, x=1.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="22" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q22</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>chmod 755 prog</code> mean?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q22" value="a"><label>A) Everyone can read/write/execute</label></div>
+          <div class="mc-option"><input type="radio" name="q22" value="b"><label>B) Only owner can execute</label></div>
+          <div class="mc-option"><input type="radio" name="q22" value="c"><label>C) User: rwx, Group: r-x, Other: r-x</label></div>
+          <div class="mc-option"><input type="radio" name="q22" value="d"><label>D) User: r-x, Group: r-x, Other: r-x</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> 755 = rwxr-xr-x. Common for executables.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="23" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q23</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>What's the octal mask for "other read" permission bit?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q23" value="a"><label>A) 0004</label></div>
+          <div class="mc-option"><input type="radio" name="q23" value="b"><label>B) 0040</label></div>
+          <div class="mc-option"><input type="radio" name="q23" value="c"><label>C) 0400</label></div>
+          <div class="mc-option"><input type="radio" name="q23" value="d"><label>D) 0001</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation">Bottom 9 bits: rwxrwxrwx. Other read is bit 2 = 0004. Other write=0002, other execute=0001.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="24" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q24</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which system call gets file information including size and permissions?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q24" value="a"><label>A) <code>stat()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q24" value="b"><label>B) <code>fstat()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q24" value="c"><label>C) <code>getinfo()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q24" value="d"><label>D) Both A and B</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: D)</strong> Both work. <code>stat()</code> takes filename, <code>fstat()</code> takes file descriptor.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="25" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q25</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which field of <code>struct stat</code> stores file size in bytes?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q25" value="a"><label>A) <code>st_length</code></label></div>
+          <div class="mc-option"><input type="radio" name="q25" value="b"><label>B) <code>st_size</code></label></div>
+          <div class="mc-option"><input type="radio" name="q25" value="c"><label>C) <code>st_bytes</code></label></div>
+          <div class="mc-option"><input type="radio" name="q25" value="d"><label>D) <code>st_len</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> <code>info.st_size</code> contains file size in bytes.</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 6: BUFFERING (L7) -->
+    <div class="section">
+      <h2>Section 6: Buffering (Lecture 7)</h2>
+
+      <div class="question" data-question="26" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q26</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which provides buffering?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q26" value="a"><label>A) <code>fread()</code> and <code>fwrite()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q26" value="b"><label>B) <code>read()</code> and <code>write()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q26" value="c"><label>C) Both provide buffering</label></div>
+          <div class="mc-option"><input type="radio" name="q26" value="d"><label>D) Neither provides buffering</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation"><code>fread()/fwrite()</code> are buffered (use FILE*). <code>read()/write()</code> are unbuffered system calls (use fd).</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="27" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q27</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Why is buffering useful?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q27" value="a"><label>A) Uses less memory</label></div>
+          <div class="mc-option"><input type="radio" name="q27" value="b"><label>B) Reduces system calls for better performance</label></div>
+          <div class="mc-option"><input type="radio" name="q27" value="c"><label>C) Makes code simpler</label></div>
+          <div class="mc-option"><input type="radio" name="q27" value="d"><label>D) Required by ANSI C</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation">Buffering collects data in memory before making system calls, reducing expensive kernel transitions.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="28" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q28</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which function forces buffered output to be written?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q28" value="a"><label>A) <code>fflush()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q28" value="b"><label>B) <code>flush()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q28" value="c"><label>C) <code>sync()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q28" value="d"><label>D) <code>fsync()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>fflush(fp)</code> flushes the buffer for FILE*. <code>fsync()</code> is for file descriptors.</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 7: FUNCTION POINTERS (L8) -->
+    <div class="section">
+      <h2>Section 7: Function Pointers & qsort (Lecture 8)</h2>
+
+      <div class="question" data-question="29" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q29</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>What are the 4 parameters of <code>qsort()</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q29" value="a"><label>A) array, start, end, comparator</label></div>
+          <div class="mc-option"><input type="radio" name="q29" value="b"><label>B) pointer, max, min, function</label></div>
+          <div class="mc-option"><input type="radio" name="q29" value="c"><label>C) base, number of elements, element size, comparison function</label></div>
+          <div class="mc-option"><input type="radio" name="q29" value="d"><label>D) array, length, type, order</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong></p>
+          <div class="explanation"><code>qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void*, const void*))</code></div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="30" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q30</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What should a comparison function return if a < b?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q30" value="a"><label>A) Positive number</label></div>
+          <div class="mc-option"><input type="radio" name="q30" value="b"><label>B) Negative number</label></div>
+          <div class="mc-option"><input type="radio" name="q30" value="c"><label>C) 0</label></div>
+          <div class="mc-option"><input type="radio" name="q30" value="d"><label>D) 1</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> Return negative if a<b, 0 if a==b, positive if a>b.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="31" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q31</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>Why does qsort use <code>const void*</code> parameters?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q31" value="a"><label>A) To work with any data type (generic)</label></div>
+          <div class="mc-option"><input type="radio" name="q31" value="b"><label>B) To prevent modification</label></div>
+          <div class="mc-option"><input type="radio" name="q31" value="c"><label>C) For better performance</label></div>
+          <div class="mc-option"><input type="radio" name="q31" value="d"><label>D) C standard requirement</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation"><code>void*</code> allows qsort to work with any type. Inside comparison function, you cast to the actual type.</div>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 8: MALLOC (L9) -->
+    <div class="section">
+      <h2>Section 8: Dynamic Memory (Lecture 9)</h2>
+
+      <div class="question" data-question="32" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q32</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which function allocates memory dynamically?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q32" value="a"><label>A) <code>malloc()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q32" value="b"><label>B) <code>alloc()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q32" value="c"><label>C) <code>new()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q32" value="d"><label>D) <code>create()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>void *malloc(size_t size)</code> allocates memory on the heap.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="33" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q33</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>malloc()</code> return on failure?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q33" value="a"><label>A) -1</label></div>
+          <div class="mc-option"><input type="radio" name="q33" value="b"><label>B) 0</label></div>
+          <div class="mc-option"><input type="radio" name="q33" value="c"><label>C) NULL</label></div>
+          <div class="mc-option"><input type="radio" name="q33" value="d"><label>D) EOF</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> Always check: <code>if ((p = malloc(n)) == NULL)</code></p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="34" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q34</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which function frees dynamically allocated memory?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q34" value="a"><label>A) <code>delete()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q34" value="b"><label>B) <code>free()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q34" value="c"><label>C) <code>release()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q34" value="d"><label>D) <code>dealloc()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> <code>free(ptr)</code> releases memory allocated by malloc/calloc/realloc.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="35" data-answer="d">
+        <div class="question-header">
+          <span class="question-number">Q35</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What's wrong with using memory after calling <code>free()</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q35" value="a"><label>A) Slower performance</label></div>
+          <div class="mc-option"><input type="radio" name="q35" value="b"><label>B) Uses more memory</label></div>
+          <div class="mc-option"><input type="radio" name="q35" value="c"><label>C) Nothing wrong</label></div>
+          <div class="mc-option"><input type="radio" name="q35" value="d"><label>D) Undefined behavior (dangling pointer)</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: D)</strong> Using freed memory causes undefined behavior. Set pointer to NULL after free.</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 9: DIRECTORIES (L10, L12) -->
+    <div class="section">
+      <h2>Section 9: Directories (Lectures 10, 12)</h2>
+
+      <div class="question" data-question="36" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q36</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What's the difference between hard link and symbolic link?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q36" value="a"><label>A) No difference</label></div>
+          <div class="mc-option"><input type="radio" name="q36" value="b"><label>B) Hard link shares inode; symbolic link is separate file with path</label></div>
+          <div class="mc-option"><input type="radio" name="q36" value="c"><label>C) Hard link is faster</label></div>
+          <div class="mc-option"><input type="radio" name="q36" value="d"><label>D) Symbolic link shares inode</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation">Hard link: another name for same inode/data. Symbolic link: separate file containing pathname. If original deleted, hard link still works, symlink breaks.</div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="37" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q37</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Which command creates a symbolic link?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q37" value="a"><label>A) <code>ln target link</code></label></div>
+          <div class="mc-option"><input type="radio" name="q37" value="b"><label>B) <code>link target link</code></label></div>
+          <div class="mc-option"><input type="radio" name="q37" value="c"><label>C) <code>ln -s target link</code></label></div>
+          <div class="mc-option"><input type="radio" name="q37" value="d"><label>D) <code>symlink target link</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> <code>ln -s</code> creates symbolic link. <code>ln</code> without <code>-s</code> creates hard link.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="38" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q38</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>opendir()</code> return?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q38" value="a"><label>A) DIR* (directory stream pointer)</label></div>
+          <div class="mc-option"><input type="radio" name="q38" value="b"><label>B) File descriptor (int)</label></div>
+          <div class="mc-option"><input type="radio" name="q38" value="c"><label>C) Array of filenames</label></div>
+          <div class="mc-option"><input type="radio" name="q38" value="d"><label>D) FILE* pointer</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> <code>DIR *dp = opendir(dirname)</code>. Use with <code>readdir()</code>, close with <code>closedir()</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="39" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q39</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which function reads the next directory entry?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q39" value="a"><label>A) <code>getdir()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q39" value="b"><label>B) <code>readdir()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q39" value="c"><label>C) <code>nextdir()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q39" value="d"><label>D) <code>scandir()</code></label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> <code>struct dirent *entry = readdir(dp)</code>. Returns NULL at end.</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 10: DEVICES (L13) -->
+    <div class="section">
+      <h2>Section 10: Devices & Terminal Control (Lecture 13)</h2>
+
+      <div class="question" data-question="40" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q40</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does "Unix treats devices like files" mean?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q40" value="a"><label>A) Devices can be accessed with open(), read(), write(), close()</label></div>
+          <div class="mc-option"><input type="radio" name="q40" value="b"><label>B) Devices are stored as files</label></div>
+          <div class="mc-option"><input type="radio" name="q40" value="c"><label>C) All devices are text files</label></div>
+          <div class="mc-option"><input type="radio" name="q40" value="d"><label>D) Devices must have file extensions</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong></p>
+          <div class="explanation">Many devices use the same interface as regular files. Example: <code>open("/dev/tty", O_RDWR)</code></div>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="41" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q41</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which functions get/set terminal attributes?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q41" value="a"><label>A) <code>getterm()</code> and <code>setterm()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q41" value="b"><label>B) <code>tcgetattr()</code> and <code>tcsetattr()</code></label></div>
+          <div class="mc-option"><input type="radio" name="q41" value="c"><label>C) <code>ioctl()</code> only</label></div>
+          <div class="mc-option"><input type="radio" name="q41" value="d"><label>D) <code>stty()</code> only</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> Work with <code>struct termios</code> to control echo, canonical mode, etc.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="42" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q42</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>Why would a password program turn off echo?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q42" value="a"><label>A) For better performance</label></div>
+          <div class="mc-option"><input type="radio" name="q42" value="b"><label>B) To validate input</label></div>
+          <div class="mc-option"><input type="radio" name="q42" value="c"><label>C) So password isn't shown on screen</label></div>
+          <div class="mc-option"><input type="radio" name="q42" value="d"><label>D) Required by security standards</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> Clear ECHO flag in termios to hide typed characters.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="43" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q43</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>fcntl(fd, F_GETFL)</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q43" value="a"><label>A) Gets file status flags</label></div>
+          <div class="mc-option"><input type="radio" name="q43" value="b"><label>B) Gets file name</label></div>
+          <div class="mc-option"><input type="radio" name="q43" value="c"><label>C) Gets file size</label></div>
+          <div class="mc-option"><input type="radio" name="q43" value="d"><label>D) Gets file lock</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> Returns flags like O_RDONLY, O_NONBLOCK. Use F_SETFL to modify.</p>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- SECTION 11: SIGNALS (L14) -->
+    <div class="section">
+      <h2>Section 11: Signals (Lecture 14)</h2>
+
+      <div class="question" data-question="44" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q44</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What signal is sent by Ctrl-C?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q44" value="a"><label>A) SIGTERM</label></div>
+          <div class="mc-option"><input type="radio" name="q44" value="b"><label>B) SIGINT</label></div>
+          <div class="mc-option"><input type="radio" name="q44" value="c"><label>C) SIGKILL</label></div>
+          <div class="mc-option"><input type="radio" name="q44" value="d"><label>D) SIGQUIT</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> SIGINT (interrupt). Ctrl-Z sends SIGTSTP (stop).</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="45" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q45</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What's the default signal sent by <code>kill pid</code>?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q45" value="a"><label>A) SIGTERM</label></div>
+          <div class="mc-option"><input type="radio" name="q45" value="b"><label>B) SIGINT</label></div>
+          <div class="mc-option"><input type="radio" name="q45" value="c"><label>C) SIGKILL</label></div>
+          <div class="mc-option"><input type="radio" name="q45" value="d"><label>D) SIGHUP</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> SIGTERM (15). Use <code>kill -9 pid</code> for SIGKILL.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="46" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q46</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>Which signal CANNOT be caught or ignored?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q46" value="a"><label>A) SIGINT</label></div>
+          <div class="mc-option"><input type="radio" name="q46" value="b"><label>B) SIGTERM</label></div>
+          <div class="mc-option"><input type="radio" name="q46" value="c"><label>C) SIGKILL</label></div>
+          <div class="mc-option"><input type="radio" name="q46" value="d"><label>D) SIGALRM</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> SIGKILL (9) and SIGSTOP cannot be caught, blocked, or ignored.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="47" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q47</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>signal(SIGINT, SIG_IGN)</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q47" value="a"><label>A) Installs default handler</label></div>
+          <div class="mc-option"><input type="radio" name="q47" value="b"><label>B) Ignores SIGINT</label></div>
+          <div class="mc-option"><input type="radio" name="q47" value="c"><label>C) Blocks SIGINT</label></div>
+          <div class="mc-option"><input type="radio" name="q47" value="d"><label>D) Syntax error</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong> Makes process ignore SIGINT (Ctrl-C won't interrupt).</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="48" data-answer="a">
+        <div class="question-header">
+          <span class="question-number">Q48</span>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p><strong>What does <code>alarm(5)</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q48" value="a"><label>A) Schedules SIGALRM in 5 seconds</label></div>
+          <div class="mc-option"><input type="radio" name="q48" value="b"><label>B) Sleeps for 5 seconds</label></div>
+          <div class="mc-option"><input type="radio" name="q48" value="c"><label>C) Sends signal 5</label></div>
+          <div class="mc-option"><input type="radio" name="q48" value="d"><label>D) Sets alarm priority to 5</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: A)</strong> Kernel sends SIGALRM after 5 seconds. Only one alarm at a time.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="49" data-answer="c">
+        <div class="question-header">
+          <span class="question-number">Q49</span>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p><strong>What does <code>pause()</code> do?</strong></p>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q49" value="a"><label>A) Pauses for 1 second</label></div>
+          <div class="mc-option"><input type="radio" name="q49" value="b"><label>B) Stops the program</label></div>
+          <div class="mc-option"><input type="radio" name="q49" value="c"><label>C) Waits until a signal arrives</label></div>
+          <div class="mc-option"><input type="radio" name="q49" value="d"><label>D) Pauses output</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: C)</strong> Suspends process until any signal is delivered.</p>
+        </div></details>
+      </div>
+
+      <div class="question" data-question="50" data-answer="b">
+        <div class="question-header">
+          <span class="question-number">Q50</span>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p><strong>What happens with this code?</strong></p>
+        <pre>signal(SIGALRM, handler);
+alarm(3);
+pause();</pre>
+        <div class="mc-options">
+          <div class="mc-option"><input type="radio" name="q50" value="a"><label>A) Waits forever</label></div>
+          <div class="mc-option"><input type="radio" name="q50" value="b"><label>B) Waits 3 seconds, handler runs, continues</label></div>
+          <div class="mc-option"><input type="radio" name="q50" value="c"><label>C) Immediate handler execution</label></div>
+          <div class="mc-option"><input type="radio" name="q50" value="d"><label>D) Compilation error</label></div>
+        </div>
+        <details><summary>Show Explanation</summary><div class="answer">
+          <p><strong>Correct: B)</strong></p>
+          <div class="explanation">Install handler → schedule alarm → wait in pause() → after 3 seconds SIGALRM arrives → handler runs → pause() returns.</div>
+        </div></details>
+      </div>
+    </div>
+
+    <!-- STUDY TIPS -->
+    <div class="section">
+      <h2>📚 Study Tips & Exam Strategy</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Before Exam</h3>
+          <ul>
+            <li>Complete all 50 questions untimed</li>
+            <li>Review wrong answers carefully</li>
+            <li>Re-take with 2-hour time limit</li>
+            <li>Focus on "hard" difficulty questions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Common Mistakes</h3>
+          <ul>
+            <li>Array bounds (0 to n-1)</li>
+            <li>Pointer/address confusion (&, *)</li>
+            <li>Not checking return values</li>
+            <li>Forgetting null terminator in strings</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Key Concepts</h3>
+          <ul>
+            <li>Difference: open() vs fopen()</li>
+            <li>Permission masks (644, 755)</li>
+            <li>Signal handling patterns</li>
+            <li>EOF vs 0 vs -1 return values</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Practice Strategy</h3>
+          <ul>
+            <li>Understand WHY, not just WHAT</li>
+            <li>Write code examples by hand</li>
+            <li>Trace pointer operations step-by-step</li>
+            <li>Memorize common system call returns</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Answer tracking
+    let userAnswers = {};
+
+    // Track selected answers
+    document.querySelectorAll('.mc-option input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const questionNum = this.name.replace('q', '');
+        userAnswers[questionNum] = this.value;
+        updateProgress();
+
+        // Visual feedback
+        this.closest('.mc-options').querySelectorAll('.mc-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.closest('.mc-option').classList.add('selected');
+      });
+    });
+
+    function updateProgress() {
+      const answered = Object.keys(userAnswers).length;
+      const total = 50;
+      const percent = Math.round((answered / total) * 100);
+
+      document.getElementById('answeredCount').textContent = answered;
+      document.getElementById('percentComplete').textContent = percent + '%';
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+
+    function checkAllAnswers() {
+      let correct = 0;
+      const total = 50;
+
+      // Get all questions
+      document.querySelectorAll('.question[data-answer]').forEach(question => {
+        const qNum = question.dataset.question;
+        const correctAnswer = question.dataset.answer;
+        const userAnswer = userAnswers[qNum];
+
+        // Mark question
+        if (userAnswer === correctAnswer) {
+          question.classList.add('correct');
+          question.classList.remove('incorrect');
+          correct++;
+
+          // Mark correct option
+          question.querySelectorAll('.mc-option').forEach(opt => {
+            const input = opt.querySelector('input');
+            if (input && input.value === correctAnswer) {
+              opt.classList.add('correct-answer');
+            }
+          });
+        } else if (userAnswer) {
+          question.classList.add('incorrect');
+          question.classList.remove('correct');
+
+          // Mark wrong and correct options
+          question.querySelectorAll('.mc-option').forEach(opt => {
+            const input = opt.querySelector('input');
+            if (input && input.value === userAnswer) {
+              opt.classList.add('wrong-answer');
+            }
+            if (input && input.value === correctAnswer) {
+              opt.classList.add('correct-answer');
+            }
+          });
+        }
+      });
+
+      // Show score
+      const percent = Math.round((correct / total) * 100);
+      document.getElementById('scoreNumber').textContent = `${correct}/${total}`;
+
+      let message = '';
+      if (percent >= 90) {
+        message = '🎉 Excellent! You\'re well prepared!';
+      } else if (percent >= 80) {
+        message = '👍 Very Good! Review the incorrect answers.';
+      } else if (percent >= 70) {
+        message = '👌 Good start. Keep studying the weak areas.';
+      } else if (percent >= 60) {
+        message = '📖 Fair. Focus on understanding core concepts.';
+      } else {
+        message = '💪 Keep practicing! Review the explanations carefully.';
+      }
+
+      document.getElementById('scoreMessage').innerHTML = `
+        <p style="font-size: 1.2rem; margin: 10px 0;">${percent}%</p>
+        <p>${message}</p>
+      `;
+
+      document.getElementById('scorePanel').classList.add('show');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetExam() {
+      if (!confirm('Reset all answers and start over?')) return;
+
+      userAnswers = {};
+
+      // Clear visual feedback
+      document.querySelectorAll('.question').forEach(q => {
+        q.classList.remove('correct', 'incorrect');
+      });
+
+      document.querySelectorAll('.mc-option').forEach(opt => {
+        opt.classList.remove('selected', 'correct-answer', 'wrong-answer');
+      });
+
+      document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+      });
+
+      // Hide score
+      document.getElementById('scorePanel').classList.remove('show');
+
+      // Reset progress
+      updateProgress();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize progress
+    updateProgress();
+  </script>
+</body>
+</html>

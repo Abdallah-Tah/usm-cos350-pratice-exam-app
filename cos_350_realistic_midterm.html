@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COS 350 Realistic Practice Midterm</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --accent: #b91c1c;
+      --accent-soft: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero, .section, .box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.35rem; }
+    .muted { color: var(--muted); }
+    .pill {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    .question {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+    .question:first-child {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+    pre, code {
+      font-family: "Courier New", Courier, monospace;
+      background: #f8fafc;
+    }
+    pre {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    .space {
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      min-height: 88px;
+      background: #fcfdff;
+      margin-top: 10px;
+      padding: 10px;
+    }
+    details {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      background: #fafcff;
+      font-weight: bold;
+    }
+    .answer {
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>COS 350 Realistic Practice Midterm</h1>
+      <p>This version is designed to feel closer to a real exam: 20 questions, mixed topics, short answers, code reading, command questions, and small fixes.</p>
+      <div class="grid">
+        <div class="box">
+          <h3>Suggested Rules</h3>
+          <p>Do not open the answers until you finish all 20 questions.</p>
+        </div>
+        <div class="box">
+          <h3>Suggested Time</h3>
+          <p>50 to 75 minutes.</p>
+        </div>
+        <div class="box">
+          <h3>Question Style</h3>
+          <p>Very similar to lecture, experiment, and short written exam questions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Midterm Questions</h2>
+
+      <div class="question">
+        <div class="pill">Question 1</div>
+        <p>How do you view the manual page for the command <code>find</code>? What does that command do?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>man find</code></p><p>This opens the manual page for the <code>find</code> command.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 2</div>
+        <p>Write a command that finds all words in file <code>words</code> that start with <code>pre</code>.</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><pre>grep '^pre' words</pre><p><code>^</code> means start of line.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 3</div>
+        <p>You want a file to have these permissions: user read/write, group read, other read. Give the numeric chmod command.</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><pre>chmod 644 filename</pre></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 4</div>
+        <p>What system call can be used to get file information, including file size and permissions?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>stat()</code></p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 5</div>
+        <p>What field of <code>struct stat</code> stores the file size in bytes?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>st_size</code></p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 6</div>
+        <p>What numeric mask represents the <strong>other read</strong> permission bit?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>0004</code> in octal.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 7</div>
+        <p>Explain the difference between a hard link and a symbolic link.</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>A hard link is another name for the same inode and same file data. A symbolic link is a separate file containing a path to another file.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 8</div>
+        <p>What is wrong with this code?</p>
+        <pre>int a[10];
+a[10] = 5;</pre>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>The valid indexes are 0 through 9. Writing to <code>a[10]</code> is out of bounds and causes undefined behavior.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 9</div>
+        <p>Why is <code>int</code> often used with <code>getchar()</code> instead of <code>char</code>?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>Because <code>getchar()</code> must hold both character values and the special value <code>EOF</code>.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 10</div>
+        <p>What does this declaration mean?</p>
+        <pre>int main(int argc, char *argv[])</pre>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>argc</code> is the number of command-line arguments, and <code>argv</code> is an array of strings containing them.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 11</div>
+        <p>Which function converts the string <code>"42"</code> to integer 42?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>atoi()</code></p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 12</div>
+        <p>What is the difference between <code>open()</code> and <code>fopen()</code>?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>open()</code> is a system call that returns a file descriptor. <code>fopen()</code> is a C library function that returns a <code>FILE *</code> and uses buffering.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 13</div>
+        <p>What does <code>read()</code> return on end of file? What does it return on error?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>It returns <code>0</code> on end of file and <code>-1</code> on error.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 14</div>
+        <p>What does <code>lseek()</code> do?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>It repositions the current file offset for a file descriptor.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 15</div>
+        <p>Explain the four parameters of <code>qsort()</code>.</p>
+        <pre>qsort(base, nmemb, size, compar);</pre>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>base</code> is the start of the array, <code>nmemb</code> is the number of elements, <code>size</code> is the size of each element in bytes, and <code>compar</code> is the comparison function.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 16</div>
+        <p>Fix this function so it changes the caller's variable:</p>
+        <pre>void change(int x) {
+    x = x + 10;
+}</pre>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><pre>void change(int *x) {
+    *x = *x + 10;
+}</pre><p>The caller must pass <code>&amp;var</code>.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 17</div>
+        <p>Write your own version of <code>strlen()</code>.</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><pre>int my_strlen(char *s) {
+    int len = 0;
+    while (*s != '\0') {
+        len++;
+        s++;
+    }
+    return len;
+}</pre></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 18</div>
+        <p>What signal is usually sent by <code>Ctrl-C</code>? What is the default signal sent by <code>kill pid</code>?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p><code>Ctrl-C</code> usually sends <code>SIGINT</code>. <code>kill pid</code> usually sends <code>SIGTERM</code>.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 19</div>
+        <p>What do these calls do together?</p>
+        <pre>signal(SIGALRM, wakeup);
+alarm(3);
+pause();</pre>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>The program installs a handler for <code>SIGALRM</code>, schedules the alarm in 3 seconds, and then waits in <code>pause()</code> until the signal arrives.</p></div></details>
+      </div>
+
+      <div class="question">
+        <div class="pill">Question 20</div>
+        <p>What does it mean that Unix treats devices like files?</p>
+        <div class="space"></div>
+        <details><summary>Show answer</summary><div class="answer"><p>It means many devices can be accessed using the same basic interface as files, such as <code>open()</code>, <code>read()</code>, <code>write()</code>, and <code>close()</code>.</p></div></details>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
