@@ -1,29 +1,67 @@
-# Laravel + Livewire Starter Kit
+# USM COS 350 Practice Exam App
 
-## Introduction
+A Laravel study app for COS 350 Systems Programming. It provides randomized exam practice based on the local lecture materials and a seeded question pool covering Unix commands, C programming, file I/O, strings, permissions, buffering, function pointers, dynamic memory, directories, devices, and signals.
 
-Our Laravel + [Livewire](https://livewire.laravel.com) starter kit provides a robust, modern starting point for building Laravel applications with a Livewire frontend.
+## Features
 
-Livewire is a powerful way of building dynamic, reactive, frontend UIs using just PHP. It's a great fit for teams that primarily use Blade templates and are looking for a simpler alternative to JavaScript-driven SPA frameworks like React and Vue.
+- `Comprehensive Review` mode builds a randomized 50-question attempt from the full pool.
+- `Realistic Mock Exam` mode builds a randomized 20-question attempt using a lecture-weighted mix intended to feel closer to an actual exam.
+- Automatic grading with per-question explanations and attempt-order review.
+- Seeded local question bank with `74` multiple-choice questions in `database/seeders/questions_data.json`.
+- Dashboard entry points for the exam modes.
+- Separate code practice pages exposed under `/practice`.
+- Local lecture exports stored in `lectures/` and used as the reference source for topic coverage.
 
-This Livewire starter kit utilizes Livewire 4, TypeScript, Tailwind, and the [Flux UI](https://fluxui.dev) component library.
+## Stack
 
-If you are looking for the alternate configurations of this starter kit, they can be found in the following branches:
+- Laravel
+- Blade views
+- SQLite for local development
+- Vite for frontend assets
 
-- [workos](https://github.com/laravel/livewire-starter-kit/tree/workos) - if WorkOS is selected for authentication
+## Routes
 
-## Official Documentation
+- `/exam` for the main exam experience
+- `/exam?mode=comprehensive` for the full 50-question review
+- `/exam?mode=realistic` for the 20-question realistic mock exam
+- `/practice` for code practice listings
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+## Local Setup
 
-## Contributing
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate
+php artisan db:seed
+npm run dev
+php artisan serve
+```
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+If your local `.env` already exists, do not overwrite it. The app expects the database to be available and the questions table to be seeded before using the exam pages.
 
-## Code of Conduct
+## Seeding
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The question bank is loaded by [QuestionSeeder](./database/seeders/QuestionSeeder.php), which reads from `database/seeders/questions_data.json`.
 
-## License
+Useful commands:
 
-The Laravel + Livewire starter kit is open-sourced software licensed under the MIT license.
+```bash
+php artisan db:seed --class=QuestionSeeder
+php artisan migrate --seed
+```
+
+## Testing
+
+```bash
+php artisan test
+```
+
+The feature tests cover randomized attempt generation and realistic-mode grading behavior.
+
+## Notes
+
+- Generated and local-only files such as `vendor/`, `node_modules/`, `.env`, `public/hot`, caches, and the archived `.git.backup-*` directory are ignored by `.gitignore`.
+- The exam attempt order is stored in session so grading matches the exact questions shown to the student.

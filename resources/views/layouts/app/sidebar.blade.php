@@ -28,7 +28,7 @@
                 <flux:sidebar.item icon="clock" :href="route('exam.index', ['mode' => 'realistic'])">
                     {{ __('Realistic Mock') }}
                 </flux:sidebar.item>
-                <flux:sidebar.item icon="lightning" :href="route('exam.index', ['mode' => 'practice'])">
+                <flux:sidebar.item icon="bolt" :href="route('exam.index', ['mode' => 'practice'])">
                     {{ __('Practice') }}
                 </flux:sidebar.item>
             </flux:sidebar.group>
