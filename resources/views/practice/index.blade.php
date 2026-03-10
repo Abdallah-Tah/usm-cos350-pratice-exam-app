@@ -40,11 +40,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($categoryExercises as $exercise)
                         <a href="{{ route('practice.show', $exercise->id) }}" class="group block">
-                            <flux:card class="h-full transition-all hover:scale-[1.02] hover:shadow-lg">
+                            <flux:card class="h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-800/60">
                                 <div class="p-6">
                                     <div class="flex items-start justify-between mb-3">
                                         <div class="flex items-center gap-2">
-                                            <span class="flex items-center justify-center size-8 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold text-sm">
+                                            <span class="flex items-center justify-center size-8 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/20 text-blue-600 dark:text-blue-400 font-bold text-sm ring-1 ring-blue-500/20">
                                                 {{ $exercise->exercise_number }}
                                             </span>
                                         </div>

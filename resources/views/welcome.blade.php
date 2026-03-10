@@ -10,10 +10,12 @@
         @fluxAppearance
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-sans antialiased">
-        <div class="relative overflow-hidden">
+        <div class="relative overflow-hidden selection:bg-blue-500/30">
             <!-- Decorative background -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] pointer-events-none opacity-50 dark:opacity-30">
-                <div class="absolute inset-0 bg-radial-at-t from-blue-500/20 to-transparent"></div>
+            <div class="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+            
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none opacity-60 dark:opacity-40 -z-10">
+                <div class="absolute inset-0 bg-radial-at-t from-blue-500/30 via-indigo-500/10 to-transparent"></div>
             </div>
 
             <header class="relative z-10 max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
@@ -47,59 +49,69 @@
                     A comprehensive, randomized practice environment built specifically for the COS 350 midterm and final exams. Don't just study—practice for perfection.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-                    <flux:card class="p-6 transition-all hover:scale-[1.02]">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-8 text-left">
+                    <flux:card class="p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border-zinc-200/60 dark:border-zinc-800/60">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400">
+                            <div class="p-2.5 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/20 text-blue-600 dark:text-blue-400 ring-1 ring-blue-500/20">
                                 <flux:icon.book-open class="size-6" />
                             </div>
-                            <h2 class="text-xl font-bold">Comprehensive Review</h2>
+                            <h2 class="text-xl font-bold tracking-tight">Comprehensive</h2>
                         </div>
-                        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed text-sm">
                             Deep dive into the full pool of questions. Perfect for long study sessions where you want to cover every edge case and lecture concept.
                         </p>
-                        <flux:button href="{{ route('exam.index', ['mode' => 'comprehensive']) }}" variant="outline" class="w-full">Start 50-Question Review</flux:button>
+                        <flux:button href="{{ route('exam.index', ['mode' => 'comprehensive']) }}" variant="outline" class="w-full group">
+                            Start 50-Question Review
+                            <flux:icon.arrow-right class="size-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </flux:button>
                     </flux:card>
 
-                    <flux:card class="p-6 transition-all hover:scale-[1.02] border-blue-200 dark:border-blue-800 shadow-lg">
+                    <flux:card class="p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border-indigo-200/60 dark:border-indigo-800/60">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400">
+                            <div class="p-2.5 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-800/20 text-indigo-600 dark:text-indigo-400 ring-1 ring-indigo-500/20">
                                 <flux:icon.clock class="size-6" />
                             </div>
-                            <h2 class="text-xl font-bold">Realistic Midterm</h2>
+                            <h2 class="text-xl font-bold tracking-tight">Realistic Midterm</h2>
                         </div>
-                        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed text-sm">
                             Simulated exam conditions. 20 questions weighted by lecture section importance, designed to mirror the actual exam difficulty and timing.
                         </p>
-                        <flux:button href="{{ route('exam.index', ['mode' => 'realistic']) }}" variant="primary" class="w-full">Start Mock Exam</flux:button>
+                        <flux:button href="{{ route('exam.index', ['mode' => 'realistic']) }}" variant="primary" class="w-full group">
+                            Start Mock Exam
+                            <flux:icon.arrow-right class="size-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </flux:button>
                     </flux:card>
 
-                    <flux:card class="p-6 transition-all hover:scale-[1.02] border-purple-200 dark:border-purple-800 shadow-lg">
+                    <flux:card class="p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border-purple-200/60 dark:border-purple-800/60">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400">
+                            <div class="p-2.5 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/40 dark:to-purple-800/20 text-purple-600 dark:text-purple-400 ring-1 ring-purple-500/20">
                                 <flux:icon.academic-cap class="size-6" />
                             </div>
-                            <h2 class="text-xl font-bold">Professor Test</h2>
+                            <h2 class="text-xl font-bold tracking-tight">Professor Test</h2>
                         </div>
-                        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
-                            Based on actual professor practice test. 12 targeted questions covering Unix commands, system calls, file permissions, and C programming fundamentals.
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed text-sm">
+                            Based on actual professor practice test. 12 targeted questions covering Unix commands, system calls, file permissions, and C programming.
                         </p>
-                        <flux:button href="{{ route('exam.index', ['mode' => 'professor']) }}" variant="primary" class="w-full">Start Professor Test</flux:button>
+                        <flux:button href="{{ route('exam.index', ['mode' => 'professor']) }}" variant="primary" color="purple" class="w-full group">
+                            Start Professor Test
+                            <flux:icon.arrow-right class="size-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </flux:button>
                     </flux:card>
 
-                    <flux:card class="p-6 transition-all hover:scale-[1.02] border-green-200 dark:border-green-800">
+                    <flux:card class="p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-green-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border-green-200/60 dark:border-green-800/60">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-                                </svg>
+                            <div class="p-2.5 rounded-xl bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/40 dark:to-green-800/20 text-green-600 dark:text-green-400 ring-1 ring-green-500/20">
+                                <flux:icon.code-bracket class="size-6" />
                             </div>
-                            <h2 class="text-xl font-bold">Code Practice</h2>
+                            <h2 class="text-xl font-bold tracking-tight">Code Practice</h2>
                         </div>
-                        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed text-sm">
                             Write and run real C code in your browser. Practice implementing strlen, strcpy, pointers, arrays, and more with instant feedback.
                         </p>
-                        <flux:button href="{{ route('practice.index') }}" variant="outline" class="w-full">Start Coding</flux:button>
+                        <flux:button href="{{ route('practice.index') }}" variant="outline" class="w-full group">
+                            Start Coding
+                            <flux:icon.arrow-right class="size-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </flux:button>
                     </flux:card>
                 </div>
             </main>

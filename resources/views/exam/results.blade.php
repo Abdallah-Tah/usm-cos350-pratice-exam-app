@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <flux:card class="overflow-hidden border-t-4 border-t-blue-600 dark:border-t-blue-500 mb-10">
+        <flux:card class="overflow-hidden border-t-4 border-t-blue-600 dark:border-t-blue-500 mb-10 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl shadow-blue-500/5">
             <div class="p-8 text-center border-b border-zinc-100 dark:border-zinc-800">
                 <flux:badge color="blue" variant="subtle" class="mb-4">Performance Transcript</flux:badge>
                 <h1 class="text-3xl font-bold mb-2">{{ $modeConfig['label'] }} Results</h1>
@@ -130,7 +130,7 @@
                     $correctAnswer = $question->correct_answer;
                 @endphp
 
-                <flux:card class="p-0 overflow-hidden border-l-4 {{ $isCorrect ? 'border-l-green-500' : 'border-l-red-500' }}">
+                <flux:card class="p-0 overflow-hidden bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-lg border-l-4 {{ $isCorrect ? 'border-l-green-500' : 'border-l-red-500' }}">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">{{ $question->section }}</span>

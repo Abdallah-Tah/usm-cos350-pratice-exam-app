@@ -86,8 +86,8 @@
 
                 <div class="space-y-8">
                     @foreach ($questions as $question)
-                        <flux:card class="p-0 overflow-hidden" id="q-{{ $question->id }}">
-                            <div class="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-800/30">
+                        <flux:card class="p-0 overflow-hidden bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border-zinc-200/60 dark:border-zinc-800/60 shadow-sm transition-all focus-within:ring-2 focus-within:ring-blue-500/50" id="q-{{ $question->id }}">
+                            <div class="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/80 dark:bg-zinc-800/50">
                                 <div class="flex items-center gap-3">
                                     <span class="flex items-center justify-center size-8 rounded-full bg-blue-600 text-white font-bold text-sm">
                                         {{ $loop->iteration }}
@@ -115,8 +115,8 @@
 
                             <div class="px-6 pb-6 space-y-3">
                                 @foreach ($question->options as $key => $text)
-                                    <label class="flex items-start gap-4 w-full border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 dark:has-[:checked]:bg-blue-900/20 dark:has-[:checked]:border-blue-500">
-                                        <input type="radio" name="answers[{{ $question->id }}]" value="{{ $key }}" class="mt-1 size-4 text-blue-600 border-zinc-300 focus:ring-blue-500">
+                                    <label class="group flex items-start gap-4 w-full border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/50 dark:has-[:checked]:bg-blue-900/20 has-[:checked]:shadow-sm has-[:checked]:ring-1 has-[:checked]:ring-blue-500/50">
+                                        <input type="radio" name="answers[{{ $question->id }}]" value="{{ $key }}" class="mt-1 size-4 text-blue-600 border-zinc-300 focus:ring-blue-500 dark:border-zinc-700 dark:focus:ring-blue-500 dark:bg-zinc-800 transition-transform group-hover:scale-110">
                                         <div class="flex-1 flex items-start gap-3">
                                             <span class="font-bold text-blue-600 dark:text-blue-400">{{ strtoupper($key) }})</span>
                                             <span class="text-zinc-900 dark:text-zinc-100">{{ $text }}</span>
@@ -130,8 +130,8 @@
             </form>
 
             <aside class="hidden lg:block sticky top-28 space-y-6">
-                <flux:card class="p-6">
-                    <h3 class="font-bold mb-4 flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
+                <flux:card class="p-6 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border-zinc-200/60 dark:border-zinc-800/60">
+                    <h3 class="font-bold tracking-tight mb-4 flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
                         <svg class="size-4 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
@@ -159,10 +159,10 @@
                     </div>
                 </flux:card>
 
-                <div class="p-6 rounded-xl bg-blue-600 text-white shadow-xl shadow-blue-500/20">
-                    <h4 class="font-bold mb-2">Ready to finish?</h4>
-                    <p class="text-blue-100 text-sm mb-4">Make sure you've reviewed all skipped questions before submitting.</p>
-                    <button type="submit" form="exam-form" class="w-full px-4 py-2.5 text-sm font-medium bg-white text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-xl shadow-blue-500/30">
+                    <h4 class="font-bold mb-2 tracking-tight">Ready to finish?</h4>
+                    <p class="text-blue-100 text-sm mb-5 leading-relaxed">Make sure you've reviewed all skipped questions before submitting.</p>
+                    <button type="submit" form="exam-form" class="w-full px-4 py-3 text-sm font-bold bg-white text-blue-600 hover:bg-zinc-50 rounded-xl transition-all hover:shadow-lg hover:scale-[1.02]">
                         Submit Attempt
                     </button>
                 </div>

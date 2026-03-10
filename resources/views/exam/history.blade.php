@@ -39,9 +39,9 @@
     <div class="max-w-7xl mx-auto px-6 py-10">
         <!-- Overall Statistics -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <flux:card class="p-6">
+            <flux:card class="p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md">
                 <div class="flex items-center gap-4">
-                    <div class="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/40">
+                    <div class="p-3.5 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/20 ring-1 ring-blue-500/20">
                         <svg class="size-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
                         </svg>
@@ -53,9 +53,9 @@
                 </div>
             </flux:card>
 
-            <flux:card class="p-6">
+            <flux:card class="p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-green-500/10 border-green-200/60 dark:border-green-800/60 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md">
                 <div class="flex items-center gap-4">
-                    <div class="p-3 rounded-lg bg-green-100 dark:bg-green-900/40">
+                    <div class="p-3.5 rounded-xl bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/40 dark:to-green-800/20 ring-1 ring-green-500/20">
                         <svg class="size-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                         </svg>
@@ -67,9 +67,9 @@
                 </div>
             </flux:card>
 
-            <flux:card class="p-6">
+            <flux:card class="p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 border-purple-200/60 dark:border-purple-800/60 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md">
                 <div class="flex items-center gap-4">
-                    <div class="p-3 rounded-lg bg-purple-100 dark:bg-purple-900/40">
+                    <div class="p-3.5 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/40 dark:to-purple-800/20 ring-1 ring-purple-500/20">
                         <svg class="size-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                         </svg>
@@ -91,8 +91,8 @@
                         @php
                             $modeConfig = $modes[$modeKey] ?? ['label' => ucfirst($modeKey)];
                         @endphp
-                        <flux:card class="p-6">
-                            <h3 class="font-bold text-zinc-900 dark:text-zinc-100 mb-4">{{ $modeConfig['label'] }}</h3>
+                        <flux:card class="p-6 hover:shadow-md transition-shadow bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm">
+                            <h3 class="font-bold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">{{ $modeConfig['label'] }}</h3>
                             <div class="space-y-3">
                                 <div class="flex justify-between text-sm">
                                     <span class="text-zinc-500 dark:text-zinc-400">Attempts</span>
@@ -115,15 +115,13 @@
 
         <!-- Attempt History -->
         <div>
-            <div class="flex flex-col gap-4 mb-6 lg:flex-row lg:items-end lg:justify-between">
-                <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                    <svg class="size-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <div class="flex flex-col gap-4 mb-6 lg:flex-row lg:items-end lg:justify-between bg-white/40 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/60 backdrop-blur-md p-6 rounded-2xl">
+                <h2 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                    <flux:icon.document-chart-bar class="size-6 text-blue-500" />
                     Recent Attempts
                 </h2>
 
-                <form method="GET" action="{{ route('exam.history') }}" class="grid grid-cols-1 gap-3 md:grid-cols-4">
+                <form method="GET" action="{{ route('exam.history') }}" class="grid grid-cols-1 gap-4 md:grid-cols-4 lg:w-3/4">
                     <div>
                         <label for="mode" class="mb-1 block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Mode</label>
                         <select id="mode" name="mode" class="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
@@ -187,7 +185,7 @@
                         @php
                             $modeConfig = $modes[$attempt->mode] ?? ['label' => ucfirst($attempt->mode)];
                         @endphp
-                        <flux:card class="p-0 overflow-hidden border-l-4 {{ $attempt->score >= 70 ? 'border-l-green-500' : ($attempt->score >= 50 ? 'border-l-amber-500' : 'border-l-red-500') }}">
+                        <flux:card class="p-0 overflow-hidden bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-lg border-l-4 {{ $attempt->score >= 70 ? 'border-l-green-500' : ($attempt->score >= 50 ? 'border-l-amber-500' : 'border-l-red-500') }}">
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <div>
